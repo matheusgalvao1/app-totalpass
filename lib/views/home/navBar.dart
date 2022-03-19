@@ -6,13 +6,28 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      color: Colors.green,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Row(
-        children: [],
-      ),
+    return BottomNavigationBar(
+      elevation: 0,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      backgroundColor: Colors.transparent,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            CupertinoIcons.list_bullet,
+            color: Colors.blue,
+          ),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.add_circled),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.person),
+          label: '',
+        ),
+      ],
     );
   }
 }

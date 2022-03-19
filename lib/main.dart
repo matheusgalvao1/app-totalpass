@@ -15,8 +15,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Totalpass',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        brightness: Brightness.light,
+        /* light theme settings */
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        backgroundColor: Colors.black,
+        /* dark theme settings */
+      ),
+      themeMode: ThemeMode.dark,
       home: const Home(),
     );
   }

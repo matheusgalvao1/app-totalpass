@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+
+import '../accounts/main.dart';
 
 import 'navBar.dart';
 
@@ -8,19 +9,17 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(), // 80 de height
-      body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height - 140 - 60,
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-            ),
-          ),
-          const NavBar(),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            Accounts(),
+            Accounts(),
+            Accounts(),
+          ],
+        ),
+        bottomNavigationBar: NavBar(),
       ),
     );
   }
