@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'accountCard.dart';
 
-class Accounts extends StatelessWidget {
-  const Accounts({Key? key}) : super(key: key);
+class AccountsPage extends StatelessWidget {
+  const AccountsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

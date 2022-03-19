@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../accounts/main.dart';
+import '../add/main.dart';
 
 import 'navBar.dart';
 
@@ -12,11 +13,11 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
+          //physics: const NeverScrollableScrollPhysics(),
           children: const [
-            Accounts(),
-            Accounts(),
-            Accounts(),
+            AccountsPage(),
+            AddPage(),
+            AccountsPage(),
           ],
         ),
         bottomNavigationBar: NavBar(),
