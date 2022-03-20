@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:totalpass/models/account.dart';
 
 class AccountCard extends StatelessWidget {
   AccountCard({
     required this.account,
-    required this.login,
-    required this.password,
+    this.hide = false,
   });
 
-  String account, login, password;
+  Account account;
+  bool hide;
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +21,34 @@ class AccountCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(width: 15),
+              // Container(
+              //   height: 50,
+              //   width: 50,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(100),
+              //     color: Colors.white,
+              //   ),
+              // ),
+              // const SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    account,
+                    account.name,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    login,
+                    account.login,
                     style: const TextStyle(
                       color: Colors.grey,
                     ),
                   ),
                   Text(
-                    password,
+                    !hide ? account.password : '*******',
                     style: const TextStyle(
                       color: Colors.grey,
                     ),

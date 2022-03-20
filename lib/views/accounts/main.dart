@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../repositories/accountRepository.dart';
+
 import 'accountCard.dart';
 
 class AccountsPage extends StatelessWidget {
@@ -8,22 +10,13 @@ class AccountsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          child: const CupertinoSearchTextField(
-            placeholder: 'Pesquisar',
-          ),
-        ),
-        for (var i = 0; i < 20; i++)
-          AccountCard(
-            account: 'Instagram',
-            login: 'matheusgalvao',
-            password: '********',
-          ),
-      ],
+    final accounts = AccountRepository.accounts;
+
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int accountIndex) {
+        return AccountCard(account: accounts[accountIndex]);
+      },
+      itemCount: accounts.length,
     );
   }
 }
