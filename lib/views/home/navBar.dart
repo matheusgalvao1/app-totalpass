@@ -15,7 +15,6 @@ class NavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(
             CupertinoIcons.list_bullet,
-            color: Colors.blue,
           ),
           label: '',
         ),

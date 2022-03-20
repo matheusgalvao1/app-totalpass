@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/customButton.dart';
+import '../../components/customField.dart';
+
 class AddPage extends StatelessWidget {
   const AddPage({Key? key}) : super(key: key);
 
@@ -12,7 +15,7 @@ class AddPage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Text(
                 'Nova Conta',
@@ -24,7 +27,35 @@ class AddPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 30),
-          TextField(),
+          CustomField(
+            hint: 'Nome',
+          ),
+          const SizedBox(height: 10),
+          CustomField(
+            hint: 'Login',
+          ),
+          const SizedBox(height: 10),
+          CustomField(
+            hint: 'Senha',
+            password: true,
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                onTap: () {},
+                solid: false,
+                text: 'Cancelar',
+              ),
+              const SizedBox(width: 15),
+              CustomButton(
+                onTap: () {},
+                color: Colors.green,
+                text: 'Adicionar',
+              ),
+            ],
+          ),
         ],
       ),
     );
