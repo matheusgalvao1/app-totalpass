@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:totalpass/components/customField.dart';
 
 import '../../repositories/accountRepository.dart';
 
@@ -12,11 +13,60 @@ class AccountsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final accounts = AccountRepository.accounts;
 
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int accountIndex) {
-        return AccountCard(account: accounts[accountIndex]);
-      },
-      itemCount: accounts.length,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 15,
+            bottom: 5,
+            left: 15,
+            right: 15,
+          ),
+          child: Column(
+            children: [
+              CustomField(
+                hint: 'Pesquisar',
+                search: true,
+              ),
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Text(
+                    'Online',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  CupertinoSwitch(
+                    value: true,
+                    onChanged: (value) {},
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (BuildContext context, int accountIndex) {
+              return AccountCard(account: accounts[accountIndex]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  thickness: 1,
+                  color: Color(0xFF329239),
+                ),
+              );
+            },
+            itemCount: accounts.length,
+          ),
+        ),
+      ],
     );
   }
 }

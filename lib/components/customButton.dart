@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   CustomButton({
     required this.text,
-    this.color = Colors.blue,
+    this.color = const Color(0xFF329239),
     required this.onTap,
     this.solid = true,
   });
@@ -16,6 +16,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -31,13 +33,20 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border: !solid
               ? Border.all(
-                  color: Colors.grey,
+                  color: Colors.grey.withOpacity(.5),
                   width: 1,
                 )
               : null,
         ),
         child: Center(
-          child: Text(text),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: solid ? Colors.black : Colors.white,
+            ),
+          ),
         ),
       ),
     );

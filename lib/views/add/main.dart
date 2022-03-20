@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../components/customButton.dart';
 import '../../components/customField.dart';
@@ -10,14 +11,18 @@ class AddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
           Row(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
+            children: [
+              SvgPicture.asset(
+                'lib/assets/logo/lock.svg',
+                height: 30,
+              ),
+              const SizedBox(width: 15),
+              const Text(
                 'Nova Conta',
                 style: TextStyle(
                   fontSize: 30,
@@ -26,7 +31,7 @@ class AddPage extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 15),
           CustomField(
             hint: 'Nome',
           ),
@@ -38,6 +43,23 @@ class AddPage extends StatelessWidget {
           CustomField(
             hint: 'Senha',
             password: true,
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                ' Armazenar online',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              CupertinoSwitch(
+                value: true,
+                onChanged: (value) {},
+              ),
+            ],
           ),
           const SizedBox(height: 30),
           Row(
@@ -51,7 +73,6 @@ class AddPage extends StatelessWidget {
               const SizedBox(width: 15),
               CustomButton(
                 onTap: () {},
-                color: Colors.green,
                 text: 'Adicionar',
               ),
             ],
