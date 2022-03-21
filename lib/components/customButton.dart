@@ -41,11 +41,10 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: solid ? Colors.black : Colors.white,
-            ),
+            style: Theme.of(context).textTheme.headline1?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: solid ? Colors.black : Colors.white,
+                ),
           ),
         ),
       ),

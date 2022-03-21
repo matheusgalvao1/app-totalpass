@@ -16,12 +16,17 @@ class CustomField extends StatelessWidget {
     return TextField(
       obscureText: password,
       cursorColor: Theme.of(context).colorScheme.primary,
+      style: Theme.of(context).textTheme.headline3,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         hintText: hint,
+        hintStyle:
+            Theme.of(context).textTheme.headline3?.copyWith(color: Colors.grey),
         prefixIcon: search
             ? Icon(
                 CupertinoIcons.search,
                 color: Theme.of(context).colorScheme.primary,
+                size: 20,
               )
             : null,
         enabledBorder: OutlineInputBorder(

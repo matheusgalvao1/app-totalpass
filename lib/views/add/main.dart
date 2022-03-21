@@ -22,12 +22,12 @@ class AddPage extends StatelessWidget {
                 height: 30,
               ),
               const SizedBox(width: 15),
-              const Text(
+              Text(
                 'Nova Conta',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.headline1?.copyWith(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ],
           ),
@@ -48,12 +48,11 @@ class AddPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 ' Armazenar online',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.headline1?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               CupertinoSwitch(
                 value: true,

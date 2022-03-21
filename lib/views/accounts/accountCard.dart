@@ -36,30 +36,36 @@ class AccountCard extends StatelessWidget {
                 children: [
                   Text(
                     account.name,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.headline1?.copyWith(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
                   Text(
                     account.login,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: Colors.grey,
+                        ),
                   ),
                   Text(
                     !hide ? account.password : '*******',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: Colors.grey,
+                        ),
                   ),
                 ],
               ),
             ],
           ),
-          Icon(
-            Icons.visibility_off,
-            color: Theme.of(context).colorScheme.primary,
+          InkWell(
+            onTap: () {},
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            radius: 1,
+            child: Icon(
+              Icons.visibility_off,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ],
       ),

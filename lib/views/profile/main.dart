@@ -19,13 +19,13 @@ class ProfilePage extends StatelessWidget {
           height: 80,
         ),
         const SizedBox(height: 15),
-        const Text(
+        Text(
           'Matheus Galvão',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.headline1?.copyWith(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
         ),
         const SizedBox(height: 15),
         SpinKitFadingCircle(
