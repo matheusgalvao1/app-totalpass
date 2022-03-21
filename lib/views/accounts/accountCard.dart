@@ -34,12 +34,34 @@ class AccountCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    account.name,
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
+                  Container(
+                    width: MediaQuery.of(context).size.width * .75,
+                    child: Row(
+                      children: [
+                        !account.online
+                            ? Icon(
+                                Icons.wifi_off,
+                                size: 20,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            : const SizedBox(),
+                        !account.online
+                            ? const SizedBox(width: 5)
+                            : const SizedBox(),
+                        Expanded(
+                          child: Text(
+                            account.name,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                Theme.of(context).textTheme.headline1?.copyWith(
+                                      fontSize: 22,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
                         ),
+                      ],
+                    ),
                   ),
                   Text(
                     account.login,
