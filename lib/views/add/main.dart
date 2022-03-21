@@ -28,7 +28,7 @@ class AddPage extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 15),

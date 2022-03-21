@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../accounts/main.dart';
 import '../add/main.dart';
+import '../profile/main.dart';
 
 import 'navBar.dart';
 
@@ -17,7 +18,7 @@ class Home extends StatelessWidget {
           children: const [
             AccountsPage(),
             AddPage(),
-            AccountsPage(),
+            ProfilePage(),
           ],
         ),
         bottomNavigationBar: NavBar(),

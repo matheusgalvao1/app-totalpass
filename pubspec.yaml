@@ -13,6 +13,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  flutter_easyloading: ^3.0.3
+  flutter_native_splash: ^2.1.1
+  flutter_spinkit: ^5.1.0
   flutter_svg: ^1.0.3
 
 dev_dependencies:
@@ -20,6 +23,15 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+  color: "#000000"
+  image: lib/assets/logo/logo.png
+  android_gravity: center
+  ios_content_mode: center
 
 flutter:
   uses-material-design: true
