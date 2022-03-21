@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../components/customButton.dart';
 import '../../components/customField.dart';
+import '../../components/passwordField.dart';
 
 class AddPage extends StatelessWidget {
   const AddPage({Key? key}) : super(key: key);
@@ -40,10 +41,7 @@ class AddPage extends StatelessWidget {
             hint: 'Login',
           ),
           const SizedBox(height: 10),
-          CustomField(
-            hint: 'Senha',
-            password: true,
-          ),
+          PasswordField(),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

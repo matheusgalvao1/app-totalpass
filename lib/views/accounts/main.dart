@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:totalpass/components/customField.dart';
 
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../../components/customField.dart';
 import '../../repositories/accountRepository.dart';
 
 import 'accountCard.dart';
@@ -47,22 +49,29 @@ class AccountsPage extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (BuildContext context, int accountIndex) {
-              return AccountCard(account: accounts[accountIndex]);
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(
-                  thickness: 1,
-                  color: Theme.of(context).colorScheme.primary,
+          child: false
+              ? Center(
+                  child: SpinKitFadingCircle(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 50.0,
+                  ),
+                )
+              : ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int accountIndex) {
+                    return AccountCard(account: accounts[accountIndex]);
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        thickness: 1,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    );
+                  },
+                  itemCount: accounts.length,
                 ),
-              );
-            },
-            itemCount: accounts.length,
-          ),
         ),
       ],
     );
