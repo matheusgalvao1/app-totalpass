@@ -53,11 +53,11 @@ class AccountsPage extends StatelessWidget {
               return AccountCard(account: accounts[accountIndex]);
             },
             separatorBuilder: (BuildContext context, int index) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(
                   thickness: 1,
-                  color: Color(0xFF329239),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               );
             },

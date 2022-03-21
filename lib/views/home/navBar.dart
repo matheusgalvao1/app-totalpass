@@ -12,11 +12,11 @@ class NavBar extends StatelessWidget {
       showUnselectedLabels: false,
       backgroundColor: Colors.transparent,
       iconSize: 30,
-      items: const [
+      items: [
         BottomNavigationBarItem(
           icon: Icon(
             CupertinoIcons.list_bullet,
-            color: Color(0xFF329239),
+            color: Theme.of(context).colorScheme.primary,
           ),
           label: '',
         ),

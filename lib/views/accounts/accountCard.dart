@@ -57,7 +57,10 @@ class AccountCard extends StatelessWidget {
               ),
             ],
           ),
-          const Icon(Icons.visibility_off),
+          Icon(
+            Icons.visibility_off,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ],
       ),
     );

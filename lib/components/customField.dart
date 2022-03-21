@@ -15,13 +15,13 @@ class CustomField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       obscureText: password,
-      cursorColor: const Color(0xFF329239),
+      cursorColor: Theme.of(context).colorScheme.primary,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: search
-            ? const Icon(
+            ? Icon(
                 CupertinoIcons.search,
-                color: Color(0xFF329239),
+                color: Theme.of(context).colorScheme.primary,
               )
             : null,
         enabledBorder: OutlineInputBorder(
@@ -32,9 +32,9 @@ class CustomField extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             width: 3,
-            color: const Color(0xFF329239),
+            color: Theme.of(context).colorScheme.primary,
           ),
           borderRadius: BorderRadius.circular(5),
         ),

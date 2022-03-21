@@ -28,8 +28,8 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        const SpinKitFadingCircle(
-          color: Color(0xFF329239),
+        SpinKitFadingCircle(
+          color: Theme.of(context).colorScheme.primary,
           size: 50.0,
         ),
       ],

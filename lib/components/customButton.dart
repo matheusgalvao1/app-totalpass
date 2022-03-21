@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   CustomButton({
     required this.text,
-    this.color = const Color(0xFF329239),
     required this.onTap,
     this.solid = true,
   });
 
   bool solid;
   String text;
-  Color color;
   Function onTap;
 
   @override
@@ -29,7 +27,9 @@ class CustomButton extends StatelessWidget {
           minHeight: 60,
         ),
         decoration: BoxDecoration(
-          color: solid ? color : Colors.transparent,
+          color: solid
+              ? Theme.of(context).colorScheme.primary
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: !solid
               ? Border.all(
