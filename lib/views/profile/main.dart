@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../components/customButton.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -20,17 +22,110 @@ class ProfilePage extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         Text(
-          'Matheus Galvão',
+          'TotalPass',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline1?.copyWith(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
               ),
         ),
-        const SizedBox(height: 15),
-        SpinKitFadingCircle(
+        const SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * .8,
+              child: Row(
+                children: [
+                  Text(
+                    'Email:',
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
+                      'matheusgalvao@protonmail.com',
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2
+                          ?.copyWith(color: Colors.grey),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.edit,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Divider(
+          thickness: 1,
           color: Theme.of(context).colorScheme.primary,
-          size: 50.0,
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Text(
+              'Contas Online:',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                '16',
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2
+                    ?.copyWith(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Divider(
+          thickness: 1,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Text(
+              'Contas Offline:',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                '4',
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline2
+                    ?.copyWith(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomButton(
+              onTap: () {},
+              solid: false,
+              text: 'Excluir Conta',
+            ),
+            const SizedBox(width: 15),
+            CustomButton(
+              onTap: () {},
+              text: 'Sair',
+            ),
+          ],
         ),
       ],
     );
