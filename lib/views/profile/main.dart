@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -24,7 +26,12 @@ class ProfilePage extends StatelessWidget {
             fontSize: 30,
             fontWeight: FontWeight.w600,
           ),
-        )
+        ),
+        const SizedBox(height: 15),
+        const SpinKitFadingCircle(
+          color: Color(0xFF329239),
+          size: 50.0,
+        ),
       ],
     );
   }
