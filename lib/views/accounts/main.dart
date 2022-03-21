@@ -18,32 +18,30 @@ class AccountsPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(
             top: 15,
-            bottom: 5,
+            bottom: 15,
             left: 15,
             right: 15,
           ),
-          child: Column(
+          child: Row(
             children: [
-              CustomField(
-                hint: 'Pesquisar',
-                search: true,
+              Container(
+                width: MediaQuery.of(context).size.width - 147,
+                child: CustomField(
+                  hint: 'Pesquisar',
+                  search: true,
+                ),
               ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    'Online',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  CupertinoSwitch(
-                    value: true,
-                    onChanged: (value) {},
-                  ),
-                ],
+              const SizedBox(width: 10),
+              const Text(
+                'Online',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              CupertinoSwitch(
+                value: true,
+                onChanged: (value) {},
               ),
             ],
           ),
