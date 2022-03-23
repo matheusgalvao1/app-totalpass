@@ -9,14 +9,14 @@ class CustomButton extends StatelessWidget {
 
   bool solid;
   String text;
-  Function onTap;
+  final GestureTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 15,

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../repositories/accountRepository.dart';
 import '../utility/CustomTheme.dart';
+import '../views/auth/login.dart';
+import '../views/auth/register.dart';
 import '../views/home/main.dart';
 
 void main() {
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Totalpass',
       darkTheme: CustomTheme.dark,
       themeMode: ThemeMode.dark,
-      home: const Home(),
+      home: const RegisterPage(),
     );
   }
 }
