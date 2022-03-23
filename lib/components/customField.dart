@@ -6,14 +6,16 @@ class CustomField extends StatelessWidget {
     this.hint = "",
     this.password = false,
     this.search = false,
+    this.value = "",
   });
 
-  String hint;
+  String hint, value;
   bool password, search;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: TextEditingController(text: value),
       obscureText: password,
       cursorColor: Theme.of(context).colorScheme.primary,
       style: Theme.of(context).textTheme.headline3,

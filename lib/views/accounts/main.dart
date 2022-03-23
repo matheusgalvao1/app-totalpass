@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../selected/main.dart';
 import '../../components/customField.dart';
 import '../../repositories/accountRepository.dart';
 
@@ -63,7 +64,18 @@ class AccountsPage extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int accountIndex) {
                         return AccountCard(
-                            account: repositorio.contas[accountIndex]);
+                          account: repositorio.contas[accountIndex],
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: ((context) => SelectedPage(
+                                      account: repositorio.contas[accountIndex],
+                                    )),
+                              ),
+                            );
+                          },
+                        );
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return Padding(

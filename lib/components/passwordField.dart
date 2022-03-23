@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:totalpass/components/customButton.dart';
 
 class PasswordField extends StatelessWidget {
+  PasswordField({
+    this.value = "",
+  });
+
+  String value;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,6 +18,7 @@ class PasswordField extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width - 140,
             child: TextField(
+              controller: TextEditingController(text: value),
               cursorColor: Theme.of(context).colorScheme.primary,
               style: Theme.of(context).textTheme.headline3,
               decoration: InputDecoration(
