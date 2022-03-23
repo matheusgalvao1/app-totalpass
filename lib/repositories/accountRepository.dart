@@ -1,6 +1,28 @@
+import 'dart:collection';
+
+import 'package:flutter/material.dart';
+
 import '../../models/account.dart';
 
-class AccountRepository {
+class AccountRepository extends ChangeNotifier {
+//----------------------------------------------------------------------------
+  final List<Account> _contas = [
+    Account(
+      name: 'Biscoint',
+      login: 'matheusgalvao',
+      password: 'hashlash',
+      online: false,
+    ),
+  ];
+
+  UnmodifiableListView<Account> get contas => UnmodifiableListView(_contas);
+
+  void addConta(Account conta) {
+    _contas.add(conta);
+    notifyListeners();
+  }
+
+//----------------------------------------------------------------------------
   static List<Account> accounts = accountsOffline + accountsOnline;
 
   static List<Account> accountsOffline = [
