@@ -46,16 +46,37 @@ class SelectedPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
+            Text(
+              'Nome',
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
             CustomField(
               hint: 'Nome',
               value: account.name,
             ),
             const SizedBox(height: 10),
+            Text(
+              'Login',
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
             CustomField(
               hint: 'Login',
               value: account.login,
             ),
             const SizedBox(height: 10),
+            Text(
+              'Senha',
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
             PasswordField(
               value: account.password,
             ),
