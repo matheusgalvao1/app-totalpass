@@ -105,7 +105,10 @@ class SelectedPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                      repositorio.clearEdit();
+                    },
                     solid: false,
                     text: 'Cancelar',
                   ),

@@ -73,9 +73,9 @@ class AddPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButton(
-                  onTap: () {},
+                  onTap: () => repositorio.clearAdd(),
                   solid: false,
-                  text: 'Cancelar',
+                  text: 'Limpar',
                 ),
                 const SizedBox(width: 15),
                 CustomButton(
