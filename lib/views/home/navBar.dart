@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+part of 'main.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -7,6 +6,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      //currentIndex: cPage,
       elevation: 0,
       showSelectedLabels: false,
       showUnselectedLabels: false,
