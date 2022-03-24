@@ -11,28 +11,69 @@ class AccountRepository extends ChangeNotifier {
       name: 'Biscoint',
       login: 'matheusgalvao',
       password: 'hashlash',
+      online: true,
+    ),
+  ];
+
+  final List<Account> _contasOff = [
+    Account(
+      name: 'Binance',
+      login: 'matheusgalvao',
+      password: 'hashlash',
       online: false,
     ),
   ];
 
   UnmodifiableListView<Account> get contas => UnmodifiableListView(_contas);
+  UnmodifiableListView<Account> get contasOff =>
+      UnmodifiableListView(_contasOff);
 
-  TextEditingController nomeController = TextEditingController();
-  TextEditingController loginController = TextEditingController();
-  TextEditingController senhaController = TextEditingController();
+  TextEditingController nomeAddController = TextEditingController();
+  TextEditingController loginAddController = TextEditingController();
+  TextEditingController senhaAddController = TextEditingController();
+
+  bool addOnline = true;
+  bool showOnline = true;
 
   void addConta() {
-    _contas.add(
-      Account(
-        name: nomeController.text,
-        login: loginController.text,
-        password: senhaController.text,
-      ),
-    );
-    nomeController.clear();
-    loginController.clear();
-    senhaController.clear();
+    if (addOnline) {
+      _contas.add(
+        Account(
+          name: nomeAddController.text,
+          login: loginAddController.text,
+          password: senhaAddController.text,
+          online: addOnline,
+        ),
+      );
+    } else {
+      _contasOff.add(
+        Account(
+          name: nomeAddController.text,
+          login: loginAddController.text,
+          password: senhaAddController.text,
+          online: addOnline,
+        ),
+      );
+    }
+    nomeAddController.clear();
+    loginAddController.clear();
+    senhaAddController.clear();
+    setAddOnline(true);
     notifyListeners();
+  }
+
+  void setAddOnline(bool value) {
+    if (addOnline != value) {
+      addOnline = value;
+      notifyListeners();
+    }
+  }
+
+  void setShowOnline(bool value) {
+    if (showOnline != value) {
+      showOnline = value;
+      notifyListeners();
+    }
   }
 
   void removeConta(Account conta) {

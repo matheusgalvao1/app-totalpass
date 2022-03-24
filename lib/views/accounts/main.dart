@@ -47,8 +47,8 @@ class AccountsPage extends StatelessWidget {
                     ),
                   ),
                   CupertinoSwitch(
-                    value: true,
-                    onChanged: (value) {},
+                    value: repositorio.showOnline,
+                    onChanged: (value) => repositorio.setShowOnline(value),
                   ),
                 ],
               ),
@@ -65,13 +65,17 @@ class AccountsPage extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int accountIndex) {
                         return AccountCard(
-                          account: repositorio.contas[accountIndex],
+                          account: repositorio.showOnline
+                              ? repositorio.contas[accountIndex]
+                              : repositorio.contasOff[accountIndex],
                           onTap: () {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
                                 builder: ((context) => SelectedPage(
-                                      account: repositorio.contas[accountIndex],
+                                      account: repositorio.showOnline
+                                          ? repositorio.contas[accountIndex]
+                                          : repositorio.contasOff[accountIndex],
                                     )),
                               ),
                             );
@@ -87,7 +91,9 @@ class AccountsPage extends StatelessWidget {
                           ),
                         );
                       },
-                      itemCount: repositorio.contas.length,
+                      itemCount: repositorio.showOnline
+                          ? repositorio.contas.length
+                          : repositorio.contasOff.length,
                     ),
             ),
           ],

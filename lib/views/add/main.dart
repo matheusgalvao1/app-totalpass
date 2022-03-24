@@ -40,16 +40,16 @@ class AddPage extends StatelessWidget {
             const SizedBox(height: 15),
             CustomField(
               hint: 'Nome',
-              controller: repositorio.nomeController,
+              controller: repositorio.nomeAddController,
             ),
             const SizedBox(height: 10),
             CustomField(
               hint: 'Login',
-              controller: repositorio.loginController,
+              controller: repositorio.loginAddController,
             ),
             const SizedBox(height: 10),
             PasswordField(
-              controller: repositorio.senhaController,
+              controller: repositorio.senhaAddController,
             ),
             const SizedBox(height: 10),
             Row(
@@ -62,8 +62,8 @@ class AddPage extends StatelessWidget {
                       ),
                 ),
                 CupertinoSwitch(
-                  value: true,
-                  onChanged: (value) {},
+                  value: repositorio.addOnline,
+                  onChanged: (value) => repositorio.setAddOnline(value),
                 ),
               ],
             ),
