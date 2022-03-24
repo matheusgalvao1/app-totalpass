@@ -7,7 +7,6 @@ import '../../repositories/accountRepository.dart';
 import '../../components/customButton.dart';
 import '../../components/customField.dart';
 import '../../components/passwordField.dart';
-import '../../models/account.dart';
 
 class SelectedPage extends StatelessWidget {
   @override

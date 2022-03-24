@@ -7,14 +7,7 @@ import '../../models/account.dart';
 
 class AccountRepository extends ChangeNotifier {
 //----------------------------------------------------------------------------
-  final List<Account> _contas = [
-    Account(
-      name: 'Biscoint',
-      login: 'matheusgalvao',
-      password: 'hashlash',
-      online: true,
-    ),
-  ];
+  final List<Account> _contas = [];
 
   final List<Account> _contasOff = [
     Account(

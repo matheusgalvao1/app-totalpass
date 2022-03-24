@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:totalpass/models/account.dart';
 
-class AccountCard extends StatelessWidget {
+class AccountCard extends StatefulWidget {
   AccountCard({
     required this.account,
-    this.hide = false,
     required this.onTap,
   });
 
   Account account;
-  bool hide;
   final GestureTapCallback? onTap;
+
+  @override
+  State<AccountCard> createState() => _AccountCardState();
+}
+
+class _AccountCardState extends State<AccountCard> {
+  bool show = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  setShow() {
+    setState(() {
+      show = !show;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       child: Container(
@@ -27,15 +43,6 @@ class AccountCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                // Container(
-                //   height: 50,
-                //   width: 50,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(100),
-                //     color: Colors.white,
-                //   ),
-                // ),
-                // const SizedBox(width: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -44,19 +51,19 @@ class AccountCard extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * .75,
                       child: Row(
                         children: [
-                          !account.online
+                          !widget.account.online
                               ? Icon(
                                   Icons.wifi_off,
                                   size: 20,
                                   color: Theme.of(context).colorScheme.primary,
                                 )
                               : const SizedBox(),
-                          !account.online
+                          !widget.account.online
                               ? const SizedBox(width: 5)
                               : const SizedBox(),
                           Expanded(
                             child: Text(
-                              account.name,
+                              widget.account.name,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
@@ -72,13 +79,16 @@ class AccountCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      account.login,
+                      widget.account.login,
                       style: Theme.of(context).textTheme.headline3?.copyWith(
                             color: Colors.grey,
                           ),
                     ),
                     Text(
-                      !hide ? account.password : '*******',
+                      show
+                          ? widget.account.password
+                          : widget.account.password
+                              .replaceAll(RegExp('[A-Za-z0-9]'), '*'),
                       style: Theme.of(context).textTheme.headline3?.copyWith(
                             color: Colors.grey,
                           ),
@@ -88,12 +98,12 @@ class AccountCard extends StatelessWidget {
               ],
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => setShow(),
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
               radius: 1,
               child: Icon(
-                Icons.visibility_off,
+                show ? Icons.visibility : Icons.visibility_off,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
