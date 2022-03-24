@@ -35,6 +35,7 @@ class AccountsPage extends StatelessWidget {
                     child: CustomField(
                       hint: 'Pesquisar',
                       search: true,
+                      controller: TextEditingController(),
                     ),
                   ),
                   const SizedBox(width: 10),

@@ -1,6 +1,5 @@
 class Account {
   String name, login, password;
-
   bool online;
 
   Account({

@@ -4,10 +4,12 @@ import 'package:totalpass/components/customButton.dart';
 
 class PasswordField extends StatelessWidget {
   PasswordField({
+    required this.controller,
     this.value = "",
   });
 
   String value;
+  TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class PasswordField extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width - 140,
             child: TextField(
-              controller: TextEditingController(text: value),
+              controller: controller,
               cursorColor: Theme.of(context).colorScheme.primary,
               style: Theme.of(context).textTheme.headline3,
               decoration: InputDecoration(

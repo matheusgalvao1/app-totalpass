@@ -37,11 +37,13 @@ class RegisterPage extends StatelessWidget {
           //TextField(),
           CustomField(
             hint: 'Email',
+            controller: TextEditingController(),
           ),
           const SizedBox(height: 10),
           CustomField(
             hint: 'Senha',
             password: true,
+            controller: TextEditingController(),
           ),
           const SizedBox(height: 20),
           CustomButton(

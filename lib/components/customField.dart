@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomField extends StatelessWidget {
   CustomField({
+    required this.controller,
     this.hint = "",
     this.password = false,
     this.search = false,
@@ -11,11 +12,12 @@ class CustomField extends StatelessWidget {
 
   String hint, value;
   bool password, search;
+  TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: TextEditingController(text: value),
+      controller: controller,
       obscureText: password,
       cursorColor: Theme.of(context).colorScheme.primary,
       style: Theme.of(context).textTheme.headline3,

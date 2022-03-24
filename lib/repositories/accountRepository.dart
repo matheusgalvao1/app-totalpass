@@ -17,8 +17,26 @@ class AccountRepository extends ChangeNotifier {
 
   UnmodifiableListView<Account> get contas => UnmodifiableListView(_contas);
 
-  void addConta(Account conta) {
-    _contas.add(conta);
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController loginController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+
+  void addConta() {
+    _contas.add(
+      Account(
+        name: nomeController.text,
+        login: loginController.text,
+        password: senhaController.text,
+      ),
+    );
+    nomeController.clear();
+    loginController.clear();
+    senhaController.clear();
+    notifyListeners();
+  }
+
+  void removeConta(Account conta) {
+    _contas.remove(conta);
     notifyListeners();
   }
 

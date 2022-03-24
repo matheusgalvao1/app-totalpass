@@ -56,6 +56,7 @@ class SelectedPage extends StatelessWidget {
             CustomField(
               hint: 'Nome',
               value: account.name,
+              controller: TextEditingController(),
             ),
             const SizedBox(height: 10),
             Text(
@@ -68,6 +69,7 @@ class SelectedPage extends StatelessWidget {
             CustomField(
               hint: 'Login',
               value: account.login,
+              controller: TextEditingController(),
             ),
             const SizedBox(height: 10),
             Text(
@@ -79,6 +81,7 @@ class SelectedPage extends StatelessWidget {
             ),
             PasswordField(
               value: account.password,
+              controller: TextEditingController(),
             ),
             const SizedBox(height: 10),
             Row(
