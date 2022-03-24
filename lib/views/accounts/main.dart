@@ -15,8 +15,6 @@ class AccountsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accounts = AccountRepository.accounts;
-
     return Consumer<AccountRepository>(
       builder: (context, repositorio, child) {
         return Column(
@@ -69,14 +67,14 @@ class AccountsPage extends StatelessWidget {
                               ? repositorio.contas[accountIndex]
                               : repositorio.contasOff[accountIndex],
                           onTap: () {
+                            repositorio.setSelectedAccount(
+                                repositorio.showOnline
+                                    ? repositorio.contas[accountIndex]
+                                    : repositorio.contasOff[accountIndex]);
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: ((context) => SelectedPage(
-                                      account: repositorio.showOnline
-                                          ? repositorio.contas[accountIndex]
-                                          : repositorio.contasOff[accountIndex],
-                                    )),
+                                builder: ((context) => SelectedPage()),
                               ),
                             );
                           },

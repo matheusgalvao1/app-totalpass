@@ -32,7 +32,12 @@ class AccountRepository extends ChangeNotifier {
   TextEditingController loginAddController = TextEditingController();
   TextEditingController senhaAddController = TextEditingController();
 
+  TextEditingController nomeEditController = TextEditingController();
+  TextEditingController loginEditController = TextEditingController();
+  TextEditingController senhaEditController = TextEditingController();
+
   bool addOnline = true;
+  bool editOnline = true;
   bool showOnline = true;
 
   void addConta() {
@@ -55,10 +60,23 @@ class AccountRepository extends ChangeNotifier {
         ),
       );
     }
+    clearAdd();
+    notifyListeners();
+  }
+
+  void clearAdd() {
     nomeAddController.clear();
     loginAddController.clear();
     senhaAddController.clear();
     setAddOnline(true);
+    notifyListeners();
+  }
+
+  void clearEdit() {
+    nomeEditController.clear();
+    loginEditController.clear();
+    senhaEditController.clear();
+    setEditOnline(true);
     notifyListeners();
   }
 
@@ -74,6 +92,21 @@ class AccountRepository extends ChangeNotifier {
       showOnline = value;
       notifyListeners();
     }
+  }
+
+  void setEditOnline(bool value) {
+    if (editOnline != value) {
+      editOnline = value;
+      notifyListeners();
+    }
+  }
+
+  void setSelectedAccount(Account conta) {
+    nomeEditController.text = conta.name;
+    loginEditController.text = conta.login;
+    senhaEditController.text = conta.password;
+    editOnline = conta.online;
+    notifyListeners();
   }
 
   void removeConta(Account conta) {
