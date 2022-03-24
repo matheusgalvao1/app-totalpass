@@ -50,6 +50,7 @@ class AddPage extends StatelessWidget {
             const SizedBox(height: 10),
             PasswordField(
               controller: repositorio.senhaAddController,
+              add: true,
             ),
             const SizedBox(height: 10),
             Row(

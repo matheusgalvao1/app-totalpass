@@ -82,6 +82,7 @@ class SelectedPage extends StatelessWidget {
               ),
               PasswordField(
                 controller: repositorio.senhaEditController,
+                add: false,
               ),
               const SizedBox(height: 10),
               Row(

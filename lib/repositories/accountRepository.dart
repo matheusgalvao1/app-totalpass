@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -101,12 +102,40 @@ class AccountRepository extends ChangeNotifier {
     }
   }
 
+  void setAddRandom() {
+    senhaAddController.text = randomPassword();
+    notifyListeners();
+  }
+
+  void setEditRandom() {
+    senhaEditController.text = randomPassword();
+    notifyListeners();
+  }
+
   void setSelectedAccount(Account conta) {
     nomeEditController.text = conta.name;
     loginEditController.text = conta.login;
     senhaEditController.text = conta.password;
     editOnline = conta.online;
     notifyListeners();
+  }
+
+  String randomPassword() {
+    String letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var randomLetter = Random();
+    var randomNum = Random();
+    var randomBool = Random();
+    String pass = '';
+    int size = 8 + randomNum.nextInt(15);
+    for (int i = 0; i < size; i++) {
+      if (randomBool.nextBool()) {
+        pass = pass + letters[randomLetter.nextInt(letters.length)];
+      } else {
+        pass = pass + randomNum.nextInt(10).toString();
+      }
+    }
+
+    return pass;
   }
 
   void removeConta(Account conta) {

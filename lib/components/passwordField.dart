@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:totalpass/components/customButton.dart';
+
+import '../repositories/accountRepository.dart';
 
 class PasswordField extends StatelessWidget {
   PasswordField({
     required this.controller,
-    this.value = "",
+    required this.add,
   });
 
-  String value;
   TextEditingController controller;
+  bool add;
 
   @override
   Widget build(BuildContext context) {
@@ -48,36 +51,41 @@ class PasswordField extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 10,
-              ),
-              height: 50,
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 1,
+          Consumer<AccountRepository>(builder: (context, repositorio, child) {
+            return InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () {
+                add ? repositorio.setAddRandom() : repositorio.setEditRandom();
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 10,
+                ),
+                height: 50,
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 1,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    'Aleatória',
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color:
+                              Colors.white, //.of(context).colorScheme.primary,
+                        ),
+                  ),
                 ),
               ),
-              child: Center(
-                child: Text(
-                  'Aleatória',
-                  style: Theme.of(context).textTheme.headline3?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white, //.of(context).colorScheme.primary,
-                      ),
-                ),
-              ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

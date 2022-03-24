@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../repositories/accountRepository.dart';
 import '../accounts/main.dart';
 import '../add/main.dart';
 import '../profile/main.dart';
@@ -44,38 +46,44 @@ class _HomeState extends State<Home> {
             ProfilePage(),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: cPage,
-          elevation: 0,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          backgroundColor: Colors.transparent,
-          iconSize: 30,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          onTap: (page) {
-            pc.animateToPage(
-              page,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.list_bullet,
+        bottomNavigationBar:
+            Consumer<AccountRepository>(builder: (context, repositorio, child) {
+          return BottomNavigationBar(
+            currentIndex: cPage,
+            elevation: 0,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            backgroundColor: Colors.transparent,
+            iconSize: 30,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            onTap: (page) {
+              if (page == 1) {
+                repositorio.clearAdd();
+              }
+              pc.animateToPage(
+                page,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease,
+              );
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.list_bullet,
+                ),
+                label: '',
               ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.add_circled),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person),
-              label: '',
-            ),
-          ],
-        ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.add_circled),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.person),
+                label: '',
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
