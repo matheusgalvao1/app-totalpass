@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../models/account.dart';
+import '../components/CustomBar.dart';
 
 class AccountRepository extends ChangeNotifier {
 //----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ class AccountRepository extends ChangeNotifier {
   bool editOnline = true;
   bool showOnline = true;
 
-  void addConta() {
+  void addConta(BuildContext context) {
     if (addOnline) {
       _contas.add(
         Account(
@@ -55,6 +56,12 @@ class AccountRepository extends ChangeNotifier {
       );
     }
     clearAdd();
+    CustomBar.showAlert(
+      title: 'Sucesso!',
+      message: 'Conta adicionada',
+      icon: const Icon(Icons.done_rounded),
+      context: context,
+    );
     notifyListeners();
   }
 

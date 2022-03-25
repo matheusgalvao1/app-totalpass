@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:totalpass/components/CustomBar.dart';
 
 import '../../components/customButton.dart';
 import '../auth/login.dart';
@@ -118,14 +119,11 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: ((context) => const LoginPage())));
-              },
-              solid: false,
-              text: 'Excluir Conta',
+              text: 'Excluir', solid: false, onTap: () {},
+              // Navigator.push(
+              //     context,
+              //     CupertinoPageRoute(
+              //         builder: ((context) => const LoginPage())));
             ),
             const SizedBox(width: 15),
             CustomButton(

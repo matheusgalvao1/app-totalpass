@@ -80,7 +80,7 @@ class AddPage extends StatelessWidget {
                 const SizedBox(width: 15),
                 CustomButton(
                   onTap: () {
-                    repositorio.addConta();
+                    repositorio.addConta(context);
                   },
                   text: 'Adicionar',
                 ),
