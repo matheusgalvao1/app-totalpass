@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:totalpass/models/account.dart';
 
 class AccountCard extends StatefulWidget {
@@ -48,7 +49,7 @@ class _AccountCardState extends State<AccountCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * .75,
+                      width: MediaQuery.of(context).size.width - 130,
                       child: Row(
                         children: [
                           !widget.account.online
@@ -97,15 +98,33 @@ class _AccountCardState extends State<AccountCard> {
                 ),
               ],
             ),
-            InkWell(
-              onTap: () => setShow(),
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              radius: 1,
-              child: Icon(
-                show ? Icons.visibility : Icons.visibility_off,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(
+                        ClipboardData(text: widget.account.password));
+                  },
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  radius: 1,
+                  child: Icon(
+                    Icons.copy,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(width: 15),
+                InkWell(
+                  onTap: () => setShow(),
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  radius: 1,
+                  child: Icon(
+                    show ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
