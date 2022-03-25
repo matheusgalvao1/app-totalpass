@@ -114,7 +114,7 @@ class AccountRepository extends ChangeNotifier {
   }
 
   String randomPassword() {
-    String letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    String letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#_';
     var randomLetter = Random();
     var randomNum = Random();
     var randomBool = Random();

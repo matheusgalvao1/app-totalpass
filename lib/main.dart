@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Totalpass',
       darkTheme: CustomTheme.dark,
       themeMode: ThemeMode.dark,
-      home: const RegisterPage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -89,7 +89,7 @@ class _AccountCardState extends State<AccountCard> {
                       show
                           ? widget.account.password
                           : widget.account.password
-                              .replaceAll(RegExp('[A-Za-z0-9]'), '*'),
+                              .replaceAll(RegExp('[A-Za-z0-9_#@]'), '*'),
                       style: Theme.of(context).textTheme.headline3?.copyWith(
                             color: Colors.grey,
                           ),
@@ -105,8 +105,8 @@ class _AccountCardState extends State<AccountCard> {
                     Clipboard.setData(
                         ClipboardData(text: widget.account.password));
                   },
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
+                  //highlightColor: Colors.transparent,
+                  //splashColor: Colors.transparent,
                   radius: 1,
                   child: Icon(
                     Icons.copy,
