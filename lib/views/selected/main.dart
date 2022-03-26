@@ -105,15 +105,16 @@ class SelectedPage extends StatelessWidget {
                 children: [
                   CustomButton(
                     onTap: () {
-                      Navigator.pop(context);
-                      repositorio.clearEdit();
+                      repositorio.removeConta(context);
                     },
                     solid: false,
-                    text: 'Cancelar',
+                    text: 'Excluir',
                   ),
                   const SizedBox(width: 15),
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      repositorio.editConta(context);
+                    },
                     text: 'Salvar',
                   ),
                 ],

@@ -12,6 +12,7 @@ class AccountRepository extends ChangeNotifier {
 
   final List<Account> _contasOff = [
     Account(
+      id: 1,
       name: 'Binance',
       login: 'matheusgalvao',
       password: 'hashlash',
@@ -35,34 +36,123 @@ class AccountRepository extends ChangeNotifier {
   bool editOnline = true;
   bool showOnline = true;
 
-  void addConta(BuildContext context) {
-    if (addOnline) {
-      _contas.add(
-        Account(
-          name: nomeAddController.text,
-          login: loginAddController.text,
-          password: senhaAddController.text,
-          online: addOnline,
-        ),
-      );
+  int cId = -1;
+  bool cOn = false;
+
+  void addConta(BuildContext context, {bool feedback = true}) {
+    String check = checkAddFields();
+
+    if (check == 'Ok') {
+      if (addOnline) {
+        _contas.add(
+          Account(
+            id: nextId(),
+            name: nomeAddController.text,
+            login: loginAddController.text,
+            password: senhaAddController.text,
+            online: addOnline,
+          ),
+        );
+      } else {
+        _contasOff.add(
+          Account(
+            id: nextOff(),
+            name: nomeAddController.text,
+            login: loginAddController.text,
+            password: senhaAddController.text,
+            online: addOnline,
+          ),
+        );
+      }
+      clearAdd();
+      if (feedback)
+        CustomBar.showAlert(
+          title: 'Sucesso!',
+          message: 'Conta adicionada',
+          icon: const Icon(Icons.done_rounded),
+          context: context,
+        );
+      notifyListeners();
     } else {
-      _contasOff.add(
-        Account(
-          name: nomeAddController.text,
-          login: loginAddController.text,
-          password: senhaAddController.text,
-          online: addOnline,
-        ),
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: check + ' não pode ser vazio',
+        icon: const Icon(Icons.error),
+        context: context,
       );
     }
-    clearAdd();
-    CustomBar.showAlert(
-      title: 'Sucesso!',
-      message: 'Conta adicionada',
-      icon: const Icon(Icons.done_rounded),
-      context: context,
-    );
-    notifyListeners();
+  }
+
+  void editConta(BuildContext context) {
+    String check = checkEditFields();
+    if (check == 'Ok') {
+      int index = findIndex(cOn ? contas : contasOff, cId);
+      if (cOn != editOnline) {
+        nomeAddController.text = nomeEditController.text;
+        loginAddController.text = loginEditController.text;
+        senhaAddController.text = senhaEditController.text;
+        addOnline = editOnline;
+        removeConta(context, feedback: false);
+        addConta(context, feedback: false);
+        CustomBar.showAlert(
+          title: 'Sucesso!',
+          message: 'Conta editada',
+          icon: const Icon(Icons.done_rounded),
+          context: context,
+        );
+      } else {
+        if (cOn) {
+          contas[index].name = nomeEditController.text;
+          contas[index].login = loginEditController.text;
+          contas[index].password = senhaEditController.text;
+        } else {
+          contasOff[index].name = nomeEditController.text;
+          contasOff[index].login = loginEditController.text;
+          contasOff[index].password = senhaEditController.text;
+        }
+        clearAdd();
+        CustomBar.showAlert(
+          title: 'Sucesso!',
+          message: 'Conta editada',
+          icon: const Icon(Icons.done_rounded),
+          context: context,
+        );
+        notifyListeners();
+      }
+    } else {
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: check + ' não pode ser vazio',
+        icon: const Icon(Icons.error),
+        context: context,
+      );
+    }
+  }
+
+  String checkAddFields() {
+    if (nomeAddController.text.isEmpty) {
+      return 'Nome';
+    }
+    if (loginAddController.text.isEmpty) {
+      return 'Login';
+    }
+    if (senhaAddController.text.isEmpty) {
+      return 'Senha';
+    }
+    return 'Ok';
+  }
+
+  String checkEditFields() {
+    if (nomeEditController.text.isEmpty) {
+      return 'Nome';
+    }
+    if (loginEditController.text.isEmpty) {
+      return 'Login';
+    }
+    if (senhaEditController.text.isEmpty) {
+      return 'Senha';
+    }
+    return 'Ok';
   }
 
   void clearAdd() {
@@ -113,6 +203,8 @@ class AccountRepository extends ChangeNotifier {
   }
 
   void setSelectedAccount(Account conta) {
+    cId = conta.id;
+    cOn = conta.online;
     nomeEditController.text = conta.name;
     loginEditController.text = conta.login;
     senhaEditController.text = conta.password;
@@ -138,65 +230,54 @@ class AccountRepository extends ChangeNotifier {
     return pass;
   }
 
-  void removeConta(Account conta) {
-    _contas.remove(conta);
-    notifyListeners();
+  void removeConta(BuildContext context, {bool feedback = true}) {
+    int index = findIndex(cOn ? contas : contasOff, cId);
+    if (index != -1) {
+      cOn ? _contas.remove(contas[index]) : _contasOff.remove(contasOff[index]);
+      Navigator.pop(context);
+      clearEdit();
+      notifyListeners();
+      if (feedback)
+        CustomBar.showAlert(
+          title: 'Sucesso!',
+          message: 'Conta excluída',
+          icon: const Icon(Icons.done_rounded),
+          context: context,
+        );
+    } else {
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: 'Aconteceu um erro',
+        icon: const Icon(Icons.error),
+        context: context,
+      );
+    }
   }
 
-//----------------------------------------------------------------------------
-  static List<Account> accounts = accountsOffline + accountsOnline;
+  findIndex(List<Account> lista, int id) {
+    for (int i = 0; i < lista.length; i++) {
+      if (lista[i].id == id) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
-  static List<Account> accountsOffline = [
-    Account(
-      name: 'Biscoint',
-      login: 'matheusgalvao',
-      password: 'hashlash',
-      online: false,
-    ),
-    Account(
-      name: 'Coinbase',
-      login: 'matheusgalvao@email.com',
-      password: 'goodam',
-      online: false,
-    ),
-    Account(
-      name: 'Binance',
-      login: 'matheusgalvao@gmail.com',
-      password: 'facesss',
-      online: false,
-    ),
-  ];
+  int nextId() {
+    int id;
+    if (contas.isNotEmpty) {
+      id = contas[contas.length - 1].id + 1;
+      return id;
+    }
+    return 1;
+  }
 
-  static List<Account> accountsOnline = [
-    Account(
-      name: 'Instagram',
-      login: 'matheusgalvao',
-      password: 'hashlash',
-      online: true,
-    ),
-    Account(
-      name: 'Facebook',
-      login: 'matheusgalvao@email.com',
-      password: 'goodam',
-      online: true,
-    ),
-    Account(
-      name: 'Google',
-      login: 'matheusgalvao@gmail.com',
-      password: 'facesss',
-      online: true,
-    ),
-    Account(
-      name: 'Moodle',
-      login: 'matheusgalvao@utfpr.com',
-      password: 'sortasas',
-      online: true,
-    ),
-    Account(
-      name: 'Twitter',
-      login: 'galvao',
-      password: 'fdsafdafddas',
-      online: true,
-    ),
-  ];
+  int nextOff() {
+    int id;
+    if (contasOff.isNotEmpty) {
+      id = contasOff[contasOff.length - 1].id + 1;
+      return id;
+    }
+    return 1;
+  }
 }
