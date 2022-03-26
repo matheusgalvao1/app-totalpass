@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:totalpass/components/CustomBar.dart';
+import 'package:totalpass/views/profile/editModal.dart';
 
 import '../../components/customButton.dart';
 import '../auth/login.dart';
@@ -58,9 +59,14 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.edit,
-              color: Theme.of(context).colorScheme.primary,
+            InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () => Modal.showModal(context),
+              child: Icon(
+                Icons.edit,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ],
         ),
