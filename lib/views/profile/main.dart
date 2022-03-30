@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:totalpass/components/CustomBar.dart';
+import 'package:totalpass/components/customAlert.dart';
 import 'package:totalpass/views/profile/editModal.dart';
 
 import '../../components/customButton.dart';
@@ -88,7 +87,63 @@ class ProfilePage extends StatelessWidget {
               CustomButton(
                 text: 'Excluir',
                 solid: false,
-                onTap: () => repositorio.deleteAccount(context),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Tem certeza?',
+                          style:
+                              Theme.of(context).textTheme.headline1?.copyWith(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        content: Text(
+                          'Todos os seus dados serão perdidos',
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.background,
+                        actions: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 10,
+                              left: 10,
+                              right: 10,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                  onTap: () => Navigator.pop(context),
+                                  text: 'Não',
+                                  solid: false,
+                                ),
+                                const SizedBox(width: 10),
+                                CustomButton(
+                                  onTap: () =>
+                                      repositorio.deleteAccount(context),
+                                  text: 'Sim',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
               const SizedBox(width: 15),
               CustomButton(
