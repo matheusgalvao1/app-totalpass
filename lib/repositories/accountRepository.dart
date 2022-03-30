@@ -10,15 +10,7 @@ class AccountRepository extends ChangeNotifier {
 //----------------------------------------------------------------------------
   final List<Account> _contas = [];
 
-  final List<Account> _contasOff = [
-    Account(
-      id: 1,
-      name: 'Binance',
-      login: 'matheusgalvao',
-      password: 'hashlash',
-      online: false,
-    ),
-  ];
+  final List<Account> _contasOff = [];
 
   UnmodifiableListView<Account> get contas => UnmodifiableListView(_contas);
   UnmodifiableListView<Account> get contasOff =>

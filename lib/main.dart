@@ -15,13 +15,15 @@ void main() {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
-    Provider.debugCheckInvalidValueType = null;
+    //Provider.debugCheckInvalidValueType = null;
 
     runApp(
       MultiProvider(
         providers: [
-          Provider(create: (context) => AccountRepository()),
-          Provider(create: (context) => UserRepository()),
+          ChangeNotifierProvider<AccountRepository>(
+              create: (context) => AccountRepository()),
+          ChangeNotifierProvider<UserRepository>(
+              create: (context) => UserRepository()),
         ],
         child: MyApp(),
       ),

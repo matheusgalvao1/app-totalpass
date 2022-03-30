@@ -65,7 +65,10 @@ class ProfilePage extends StatelessWidget {
               InkWell(
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
-                onTap: () => Modal.showModal(context),
+                onTap: () {
+                  repositorio.openEdit();
+                  Modal.showModal(context);
+                },
                 child: Icon(
                   Icons.edit,
                   color: Theme.of(context).colorScheme.primary,
@@ -77,51 +80,6 @@ class ProfilePage extends StatelessWidget {
           Divider(
             thickness: 1,
             color: Theme.of(context).colorScheme.primary,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Text(
-                'Contas Online:',
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              const SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  '16',
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      ?.copyWith(color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Divider(
-            thickness: 1,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Text(
-                'Contas Offline:',
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              const SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  '4',
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2
-                      ?.copyWith(color: Colors.grey),
-                ),
-              ),
-            ],
           ),
           const SizedBox(height: 30),
           Row(

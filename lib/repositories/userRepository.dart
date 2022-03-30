@@ -17,6 +17,7 @@ class UserRepository extends ChangeNotifier {
   TextEditingController loginSenha = TextEditingController();
   TextEditingController registerEmail = TextEditingController();
   TextEditingController registerSenha = TextEditingController();
+  TextEditingController editEmail = TextEditingController();
 
   void signIn(BuildContext context) {
     if (loginEmail.text == usuario.email && loginSenha.text == usuario.senha) {
@@ -79,12 +80,44 @@ class UserRepository extends ChangeNotifier {
     CustomBar.showAlert(
       title: 'Sucesso!',
       message: 'Sua conta foi excluída',
-      icon: const Icon(Icons.error),
+      icon: const Icon(Icons.done),
       context: context,
     );
   }
 
-  void editEmail() {}
+  void saveEmail(BuildContext context) {
+    if (editEmail.text.isEmpty) {
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: 'Email não pode ser vazio',
+        icon: const Icon(Icons.error),
+        context: context,
+      );
+    } else if (!validEmail(editEmail.text)) {
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: 'Email inválido',
+        icon: const Icon(Icons.error),
+        context: context,
+      );
+    } else {
+      usuario.email = editEmail.text;
+
+      Navigator.pop(context);
+      CustomBar.showAlert(
+        title: 'Sucesso!',
+        message: 'Seu email atualizado',
+        icon: const Icon(Icons.done),
+        context: context,
+      );
+      notifyListeners();
+    }
+  }
+
+  void openEdit() {
+    editEmail.text = usuario.email;
+    notifyListeners();
+  }
 
   void clearLogin() {
     loginEmail.clear();
