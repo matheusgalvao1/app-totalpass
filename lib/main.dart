@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
+import 'package:totalpass/repositories/userRepository.dart';
 
 import '../repositories/accountRepository.dart';
 import '../utility/CustomTheme.dart';
@@ -14,9 +15,14 @@ void main() {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
+    Provider.debugCheckInvalidValueType = null;
+
     runApp(
-      ChangeNotifierProvider(
-        create: (context) => AccountRepository(),
+      MultiProvider(
+        providers: [
+          Provider(create: (context) => AccountRepository()),
+          Provider(create: (context) => UserRepository()),
+        ],
         child: MyApp(),
       ),
     );

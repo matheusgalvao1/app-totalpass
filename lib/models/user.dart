@@ -1,7 +1,9 @@
-class User {
+class ModelUser {
+  int uid;
   String email, senha;
 
-  User({
+  ModelUser({
+    required this.uid,
     required this.email,
     required this.senha,
   });
