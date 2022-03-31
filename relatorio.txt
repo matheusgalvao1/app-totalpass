@@ -1,0 +1,9 @@
+Aluno: Matheus Rigoni Galvão
+RA: 2163357
+
+Desenvolvido individualmente
+
+Descrição: Aplicativo para gerenciamento de senhas, propondo armazenamento
+online e offline de dados para caso o usuário deseje armazenar algumas senhas
+apenas localmente no aparelho, com funcionalidades de filtragem, edição, exclusão
+e cópia para clipboard. 

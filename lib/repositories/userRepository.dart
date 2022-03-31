@@ -106,7 +106,7 @@ class UserRepository extends ChangeNotifier {
       Navigator.pop(context);
       CustomBar.showAlert(
         title: 'Sucesso!',
-        message: 'Seu email atualizado',
+        message: 'Seu email foi atualizado',
         icon: const Icon(Icons.done),
         context: context,
       );

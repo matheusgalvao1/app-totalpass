@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:totalpass/models/account.dart';
 
+import '../../components/CustomBar.dart';
+
 class AccountCard extends StatefulWidget {
   AccountCard({
     required this.account,
@@ -104,6 +106,12 @@ class _AccountCardState extends State<AccountCard> {
                   onTap: () {
                     Clipboard.setData(
                         ClipboardData(text: widget.account.password));
+                    CustomBar.showAlert(
+                      title: 'Copiado!',
+                      message: 'Senha copiada para clipboard',
+                      icon: const Icon(Icons.copy),
+                      context: context,
+                    );
                   },
                   //highlightColor: Colors.transparent,
                   //splashColor: Colors.transparent,
