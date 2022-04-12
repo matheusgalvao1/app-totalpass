@@ -63,7 +63,7 @@ class _ColorScheme {
         primaryVariant: Colored.group01Medium,
         onPrimary: Colored.group01Dark,
         // GROUP02
-        secondary: Colored.group02Light,
+        secondary: Colors.red,
         secondaryVariant: Colored.group02Medium,
         onSecondary: Colored.group02Dark,
         // GROUP03

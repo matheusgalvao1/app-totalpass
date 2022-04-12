@@ -31,6 +31,8 @@ void main() {
   });
 }
 
+// ACHO Q O AUDIO BUGOU DNV
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override

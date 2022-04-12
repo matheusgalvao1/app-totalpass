@@ -4,9 +4,11 @@ class CustomButton extends StatelessWidget {
   CustomButton({
     required this.text,
     required this.onTap,
+    this.color = Colors.green,
     this.solid = true,
   });
 
+  Color color;
   bool solid;
   String text;
   final GestureTapCallback? onTap;
@@ -28,7 +30,9 @@ class CustomButton extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: solid
-              ? Theme.of(context).colorScheme.primary
+              ? (color == Colors.green
+                  ? Theme.of(context).colorScheme.primary
+                  : color)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: !solid

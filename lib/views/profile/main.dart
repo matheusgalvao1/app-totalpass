@@ -132,6 +132,8 @@ class ProfilePage extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 10),
                                 CustomButton(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   onTap: () =>
                                       repositorio.deleteAccount(context),
                                   text: 'Sim',
