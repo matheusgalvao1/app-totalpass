@@ -20,13 +20,8 @@ class AccountsPage extends StatefulWidget {
 }
 
 class _AccountsPageState extends State<AccountsPage> {
-  late AccountRepository contas; //////////////////////
-  List<Account> contasLocais = []; ////////////////////
-
   @override
   Widget build(BuildContext context) {
-    contas = context.watch<AccountRepository>(); //////////////////////
-
     return Consumer<AccountRepository>(
       builder: (context, repositorio, child) {
         return Column(
@@ -79,7 +74,7 @@ class _AccountsPageState extends State<AccountsPage> {
                                 account: repositorio.contas[accountIndex],
                                 onTap: () {
                                   repositorio.setSelectedAccount(
-                                      repositorio.contas[accountIndex]);
+                                      repositorio.contas[accountIndex], true);
                                   Navigator.push(
                                     context,
                                     CupertinoPageRoute(
@@ -92,7 +87,8 @@ class _AccountsPageState extends State<AccountsPage> {
                                 account: repositorio.contasOff[accountIndex],
                                 onTap: () {
                                   repositorio.setSelectedAccount(
-                                      repositorio.contasOff[accountIndex]);
+                                      repositorio.contasOff[accountIndex],
+                                      false);
                                   Navigator.push(
                                     context,
                                     CupertinoPageRoute(
@@ -120,9 +116,5 @@ class _AccountsPageState extends State<AccountsPage> {
         );
       },
     );
-  }
-
-  loadContas() {
-    contasLocais = contas.contasLocais;
   }
 }

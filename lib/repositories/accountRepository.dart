@@ -10,22 +10,38 @@ import '../database/db.dart';
 
 class AccountRepository extends ChangeNotifier {
   late Database db;
-  List<Account> _contasLocais = [];
 
   AccountRepository() {
     _initRepository();
   }
 
   _initRepository() async {
-    await _getContas();
-  }
-
-  _getContas() async {
     db = await DB.instance.database;
-    List contas = await db.query('contas');
+    List contasDoBanco = await db.query('contas');
+    for (var c in contasDoBanco) {
+      _contasOff.add(Account(
+        id: c['id'],
+        name: c['nome'],
+        login: c['login'],
+        password: c['senha'],
+      ));
+    }
   }
 
-  List<Account> get contasLocais => _contasLocais;
+  void addContaBD(String nome, String login, String senha) async {
+    int id = await db.insert('contas', {
+      'nome': nome,
+      'login': login,
+      'senha': senha,
+    });
+    Account c = Account(
+      id: id,
+      name: nome,
+      login: login,
+      password: senha,
+    );
+    _contasOff.add(c);
+  }
 
 //----------------------------------------------------------------------------
   final List<Account> _contas = [];
@@ -65,6 +81,9 @@ class AccountRepository extends ChangeNotifier {
           ),
         );
       } else {
+        addContaBD(nomeAddController.text, loginAddController.text,
+            senhaAddController.text);
+        /*
         _contasOff.add(
           Account(
             id: nextOff(),
@@ -73,6 +92,7 @@ class AccountRepository extends ChangeNotifier {
             password: senhaAddController.text,
           ),
         );
+        */
       }
       clearAdd();
       if (feedback) {
@@ -213,8 +233,9 @@ class AccountRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedAccount(Account conta) {
+  void setSelectedAccount(Account conta, bool on) {
     cId = conta.id;
+    editOnline = on;
     nomeEditController.text = conta.name;
     loginEditController.text = conta.login;
     senhaEditController.text = conta.password;

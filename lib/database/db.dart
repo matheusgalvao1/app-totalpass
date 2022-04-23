@@ -25,15 +25,15 @@ class DB {
     );
   }
 
-  // Future<Account> create(Account conta) async {
+  // Future<Account> insert(Account conta) async {
   //   final db = await instance.database;
   //   final id =
   //       await db.insert('"id", "nome", "login", "senha"', conta.toJson());
   // }
 
   _onCreate(db, versao) async {
-    //await db.execute(_conta);
     await db.execute(_contas);
+    await insertContaTeste(db);
   }
 
   String get _contas => ''' 
@@ -44,4 +44,12 @@ class DB {
       senha TEXT
     );
   ''';
+
+  insertContaTeste(db) {
+    db.insert('contas', {
+      'nome': 'nome de teste',
+      'login': 'login de teste',
+      'senha': 'senhaTeste',
+    });
+  }
 }
