@@ -31,8 +31,6 @@ void main() {
   });
 }
 
-// ACHO Q O AUDIO BUGOU DNV
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Totalpass',
       darkTheme: CustomTheme.dark,
       themeMode: ThemeMode.dark,
-      home: const LoginPage(),
+      home: const Home(),
     );
   }
 }

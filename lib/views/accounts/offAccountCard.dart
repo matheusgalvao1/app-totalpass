@@ -4,8 +4,8 @@ import 'package:totalpass/models/account.dart';
 
 import '../../components/CustomBar.dart';
 
-class AccountCard extends StatefulWidget {
-  AccountCard({
+class OffAccountCard extends StatefulWidget {
+  OffAccountCard({
     required this.account,
     required this.onTap,
   });
@@ -14,10 +14,10 @@ class AccountCard extends StatefulWidget {
   final GestureTapCallback? onTap;
 
   @override
-  State<AccountCard> createState() => _AccountCardState();
+  State<OffAccountCard> createState() => _OffAccountCardState();
 }
 
-class _AccountCardState extends State<AccountCard> {
+class _OffAccountCardState extends State<OffAccountCard> {
   bool show = false;
 
   @override
@@ -54,6 +54,12 @@ class _AccountCardState extends State<AccountCard> {
                       width: MediaQuery.of(context).size.width - 130,
                       child: Row(
                         children: [
+                          Icon(
+                            Icons.wifi_off,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: Text(
                               widget.account.name,

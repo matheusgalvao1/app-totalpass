@@ -2,11 +2,31 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/account.dart';
 import '../components/CustomBar.dart';
+import '../database/db.dart';
 
 class AccountRepository extends ChangeNotifier {
+  late Database db;
+  List<Account> _contasLocais = [];
+
+  AccountRepository() {
+    _initRepository();
+  }
+
+  _initRepository() async {
+    await _getContas();
+  }
+
+  _getContas() async {
+    db = await DB.instance.database;
+    List contas = await db.query('contas');
+  }
+
+  List<Account> get contasLocais => _contasLocais;
+
 //----------------------------------------------------------------------------
   final List<Account> _contas = [];
 
@@ -42,7 +62,6 @@ class AccountRepository extends ChangeNotifier {
             name: nomeAddController.text,
             login: loginAddController.text,
             password: senhaAddController.text,
-            online: addOnline,
           ),
         );
       } else {
@@ -52,18 +71,18 @@ class AccountRepository extends ChangeNotifier {
             name: nomeAddController.text,
             login: loginAddController.text,
             password: senhaAddController.text,
-            online: addOnline,
           ),
         );
       }
       clearAdd();
-      if (feedback)
+      if (feedback) {
         CustomBar.showAlert(
           title: 'Sucesso!',
           message: 'Conta adicionada',
           icon: const Icon(Icons.done_rounded),
           context: context,
         );
+      }
       notifyListeners();
     } else {
       CustomBar.showAlert(
@@ -196,11 +215,9 @@ class AccountRepository extends ChangeNotifier {
 
   void setSelectedAccount(Account conta) {
     cId = conta.id;
-    cOn = conta.online;
     nomeEditController.text = conta.name;
     loginEditController.text = conta.login;
     senhaEditController.text = conta.password;
-    editOnline = conta.online;
     notifyListeners();
   }
 
