@@ -18,6 +18,7 @@ class AccountRepository extends ChangeNotifier {
   _initRepository() async {
     db = await DB.instance.database;
     List contasDoBanco = await db.query('contas');
+    _contasOff.clear();
     for (var c in contasDoBanco) {
       _contasOff.add(Account(
         id: c['id'],
@@ -41,6 +42,24 @@ class AccountRepository extends ChangeNotifier {
       password: senha,
     );
     _contasOff.add(c);
+  }
+
+  void editContaBD(int id, String nome, String login, String senha) async {
+    await db.update(
+      'contas',
+      {
+        'nome': nome,
+        'login': login,
+        'senha': senha,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> deletarContaBD(int id) async {
+    int res = await db.delete('contas', where: 'id = ?', whereArgs: [id]);
+    _initRepository();
   }
 
 //----------------------------------------------------------------------------
@@ -117,7 +136,6 @@ class AccountRepository extends ChangeNotifier {
   void editConta(BuildContext context) {
     String check = checkEditFields();
     if (check == 'Ok') {
-      int index = findIndex(cOn ? contas : contasOff, cId);
       if (cOn != editOnline) {
         nomeAddController.text = nomeEditController.text;
         loginAddController.text = loginEditController.text;
@@ -133,13 +151,13 @@ class AccountRepository extends ChangeNotifier {
         );
       } else {
         if (cOn) {
-          contas[index].name = nomeEditController.text;
-          contas[index].login = loginEditController.text;
-          contas[index].password = senhaEditController.text;
+          // contas[index].name = nomeEditController.text;
+          // contas[index].login = loginEditController.text;
+          // contas[index].password = senhaEditController.text;
         } else {
-          contasOff[index].name = nomeEditController.text;
-          contasOff[index].login = loginEditController.text;
-          contasOff[index].password = senhaEditController.text;
+          editContaBD(cId, nomeEditController.text, loginEditController.text,
+              senhaEditController.text);
+          _initRepository();
         }
         clearAdd();
         CustomBar.showAlert(
@@ -260,28 +278,18 @@ class AccountRepository extends ChangeNotifier {
     return pass;
   }
 
-  void removeConta(BuildContext context, {bool feedback = true}) {
-    int index = findIndex(cOn ? contas : contasOff, cId);
-    if (index != -1) {
-      cOn ? _contas.remove(contas[index]) : _contasOff.remove(contasOff[index]);
-      Navigator.pop(context);
-      clearEdit();
-      notifyListeners();
-      if (feedback)
-        CustomBar.showAlert(
-          title: 'Sucesso!',
-          message: 'Conta excluída',
-          icon: const Icon(Icons.done_rounded),
-          context: context,
-        );
-    } else {
+  Future<void> removeConta(BuildContext context, {bool feedback = true}) async {
+    cOn ? print('fazer') : await deletarContaBD(cId);
+    Navigator.pop(context);
+    clearEdit();
+    notifyListeners();
+    if (feedback)
       CustomBar.showAlert(
-        title: 'Opss!',
-        message: 'Aconteceu um erro',
-        icon: const Icon(Icons.error),
+        title: 'Sucesso!',
+        message: 'Conta excluída',
+        icon: const Icon(Icons.done_rounded),
         context: context,
       );
-    }
   }
 
   findIndex(List<Account> lista, int id) {

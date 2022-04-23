@@ -33,7 +33,6 @@ class DB {
 
   _onCreate(db, versao) async {
     await db.execute(_contas);
-    await insertContaTeste(db);
   }
 
   String get _contas => ''' 
@@ -44,12 +43,4 @@ class DB {
       senha TEXT
     );
   ''';
-
-  insertContaTeste(db) {
-    db.insert('contas', {
-      'nome': 'nome de teste',
-      'login': 'login de teste',
-      'senha': 'senhaTeste',
-    });
-  }
 }
