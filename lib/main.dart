@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:totalpass/widgets/auth_check.dart';
 import 'firebase_options.dart';
 
+import '../services/auth_service.dart';
 import '../repositories/userRepository.dart';
 import '../repositories/accountRepository.dart';
 import '../utility/CustomTheme.dart';
@@ -25,6 +27,7 @@ void main() async {
     runApp(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (context) => AuthService()),
           ChangeNotifierProvider<AccountRepository>(
               create: (context) => AccountRepository()),
           ChangeNotifierProvider<UserRepository>(
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
       title: 'Totalpass',
       darkTheme: CustomTheme.dark,
       themeMode: ThemeMode.dark,
-      home: const Home(),
+      home: AuthCheck(),
     );
   }
 }
