@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "95384856129",
+    "project_id": "totalpass-1317b",
+    "storage_bucket": "totalpass-1317b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95384856129:android:cd5ff4c28770d853f988c0",
+        "android_client_info": {
+          "package_name": "com.example.totalpass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95384856129-1vqtqpani09h1smi2vgaunkq628kh37m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb0bXpXMS1whH10RdW6-6hN91QY0Eu7EA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95384856129-1vqtqpani09h1smi2vgaunkq628kh37m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
