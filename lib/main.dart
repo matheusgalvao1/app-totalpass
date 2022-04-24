@@ -10,7 +10,6 @@ import '../repositories/userRepository.dart';
 import '../repositories/accountRepository.dart';
 import '../utility/CustomTheme.dart';
 import '../views/auth/login.dart';
-import '../views/auth/register.dart';
 import '../views/home/main.dart';
 
 void main() async {
