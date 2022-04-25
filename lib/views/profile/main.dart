@@ -7,12 +7,34 @@ import 'package:totalpass/components/customAlert.dart';
 import 'package:totalpass/services/auth_service.dart';
 import 'package:totalpass/views/profile/editModal.dart';
 
+import '../../components/CustomBar.dart';
 import '../../components/customButton.dart';
 import '../../repositories/userRepository.dart';
 import '../auth/login.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool loading = false;
+
+  delete() async {
+    try {
+      await context.read<AuthService>().delete();
+      Navigator.pop(context);
+    } on AuthException catch (e) {
+      CustomBar.showAlert(
+        title: 'Opss!',
+        message: e.message,
+        icon: const Icon(Icons.error),
+        context: context,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                               const SizedBox(width: 10),
                               CustomButton(
                                 color: Theme.of(context).colorScheme.secondary,
-                                onTap: () {},
+                                onTap: () async => delete(),
                                 text: 'Sim',
                               ),
                             ],

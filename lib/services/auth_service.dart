@@ -65,4 +65,13 @@ class AuthService extends ChangeNotifier {
     await _auth.signOut();
     _getUser();
   }
+
+  delete() async {
+    try {
+      await usuario?.delete();
+      _getUser();
+    } on FirebaseAuthException catch (e) {
+      throw AuthException('Não foi possível excluir a conta. Tente novamente!');
+    }
+  }
 }
