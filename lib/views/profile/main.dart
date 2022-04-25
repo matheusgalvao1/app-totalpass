@@ -21,10 +21,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool loading = false;
+  final senha = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   delete() async {
     try {
-      await context.read<AuthService>().delete();
+      await context.read<AuthService>().delete(senha.text);
       Navigator.pop(context);
     } on AuthException catch (e) {
       CustomBar.showAlert(
@@ -120,9 +122,62 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      content: Text(
-                        'Todos os seus dados serão perdidos',
-                        style: Theme.of(context).textTheme.headline2,
+                      titlePadding: const EdgeInsets.only(top: 15, left: 15),
+                      contentPadding: const EdgeInsets.all(15),
+                      content: Form(
+                        key: formKey,
+                        child: SizedBox(
+                          height: 215,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Todos os seus dados serão perdidos',
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                              TextFormField(
+                                controller: senha,
+                                style: Theme.of(context).textTheme.headline2,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  labelText: 'Senha',
+                                  errorStyle: TextStyle(fontSize: 15),
+                                ),
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Digite sua senha!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomButton(
+                                    onTap: () => Navigator.pop(context),
+                                    text: 'Não',
+                                    solid: false,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  CustomButton(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    onTap: () async {
+                                      if (formKey.currentState!.validate()) {
+                                        delete();
+                                      }
+                                    },
+                                    text: 'Sim',
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: const BorderRadius.all(
@@ -134,31 +189,31 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       backgroundColor: Theme.of(context).colorScheme.background,
-                      actions: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 10,
-                            left: 10,
-                            right: 10,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomButton(
-                                onTap: () => Navigator.pop(context),
-                                text: 'Não',
-                                solid: false,
-                              ),
-                              const SizedBox(width: 10),
-                              CustomButton(
-                                color: Theme.of(context).colorScheme.secondary,
-                                onTap: () async => delete(),
-                                text: 'Sim',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      // actions: <Widget>[
+                      //   Padding(
+                      //     padding: const EdgeInsets.only(
+                      //       bottom: 10,
+                      //       left: 10,
+                      //       right: 10,
+                      //     ),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         CustomButton(
+                      //           onTap: () => Navigator.pop(context),
+                      //           text: 'Não',
+                      //           solid: false,
+                      //         ),
+                      //         const SizedBox(width: 10),
+                      //         CustomButton(
+                      //           color: Theme.of(context).colorScheme.secondary,
+                      //           onTap: () async => delete(),
+                      //           text: 'Sim',
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ],
                     );
                   },
                 );

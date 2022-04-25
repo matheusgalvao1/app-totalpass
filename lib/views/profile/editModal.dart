@@ -4,8 +4,27 @@ import 'package:totalpass/components/customButton.dart';
 import 'package:totalpass/components/customField.dart';
 import 'package:totalpass/repositories/userRepository.dart';
 
+import '../../components/CustomBar.dart';
+import '../../services/auth_service.dart';
+
 class Modal {
   static void showModal(BuildContext context) {
+    final email = TextEditingController();
+
+    updateEmail() async {
+      try {
+        await context.read<AuthService>().updateEmail(email.text);
+        Navigator.pop(context);
+      } on AuthException catch (e) {
+        CustomBar.showAlert(
+          title: 'Opss!',
+          message: e.message,
+          icon: const Icon(Icons.error),
+          context: context,
+        );
+      }
+    }
+
     showModalBottomSheet(
       context: context,
       elevation: 0,
@@ -26,34 +45,47 @@ class Modal {
           ),
         ),
         padding: const EdgeInsets.all(20),
-        child: Consumer<UserRepository>(builder: (context, repositorio, child) {
-          return ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              CustomField(
-                controller: repositorio.editEmail,
-                hint: 'Email',
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            TextFormField(
+              controller: email,
+              style: Theme.of(context).textTheme.headline2,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                labelText: 'Email',
+                errorStyle: TextStyle(fontSize: 15),
               ),
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomButton(
-                    text: 'Cancelar',
-                    solid: false,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  CustomButton(
-                    text: 'Salvar',
-                    onTap: () => repositorio.saveEmail(context),
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Informe o email corretamente!';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomButton(
+                  text: 'Cancelar',
+                  solid: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                CustomButton(
+                  text: 'Salvar',
+                  onTap: () => updateEmail(),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

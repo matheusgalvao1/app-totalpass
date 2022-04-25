@@ -66,12 +66,28 @@ class AuthService extends ChangeNotifier {
     _getUser();
   }
 
-  delete() async {
+  delete(String senha) async {
     try {
+      await reAuth(senha);
       await usuario?.delete();
       _getUser();
     } on FirebaseAuthException catch (e) {
       throw AuthException('Não foi possível excluir a conta. Tente novamente!');
     }
+  }
+
+  updateEmail(String newEmail) async {
+    try {
+      await usuario?.updateEmail(newEmail);
+      _getUser();
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      throw AuthException('Não foi editar o email. Tente novamente!');
+    }
+  }
+
+  reAuth(String senha) async {
+    await usuario?.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: getEmail(), password: senha));
   }
 }
