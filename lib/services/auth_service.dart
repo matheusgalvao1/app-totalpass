@@ -76,13 +76,14 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  updateEmail(String newEmail) async {
+  updateEmail(String newEmail, String senha) async {
     try {
+      await reAuth(senha);
       await usuario?.updateEmail(newEmail);
       _getUser();
     } on FirebaseAuthException catch (e) {
       print(e);
-      throw AuthException('Não foi editar o email. Tente novamente!');
+      throw AuthException('Não foi possível editar o email. Tente novamente!');
     }
   }
 
