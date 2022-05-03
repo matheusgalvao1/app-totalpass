@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -111,12 +112,23 @@ class SelectedPage extends StatelessWidget {
                     text: 'Excluir',
                   ),
                   const SizedBox(width: 15),
-                  CustomButton(
-                    onTap: () {
-                      repositorio.editConta(context);
-                    },
-                    text: 'Salvar',
-                  ),
+                  repositorio.addLoading
+                      ? SizedBox(
+                          width: 130,
+                          height: 50,
+                          child: Center(
+                            child: SpinKitFadingCircle(
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 40,
+                            ),
+                          ),
+                        )
+                      : CustomButton(
+                          onTap: () {
+                            repositorio.editConta(context);
+                          },
+                          text: 'Salvar',
+                        ),
                 ],
               ),
             ],

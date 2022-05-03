@@ -66,10 +66,8 @@ class AccountRepository extends ChangeNotifier {
   }
 
   Future<void> deletarContaBD(int id) async {
-    print('Entrou no deletar conta bd');
     int res = await db.delete('contas', where: 'id = ?', whereArgs: [id]);
     _initRepository();
-    print('Terminou o deletar conta bd');
   }
 
 //--------------------------- Firestore --------------------------------------
@@ -346,7 +344,6 @@ class AccountRepository extends ChangeNotifier {
   }
 
   Future<void> removeConta(BuildContext context, {bool feedback = true}) async {
-    print('Entrou no remove conta');
     cOn ? await removeContaFire(cId) : await deletarContaBD(cId);
     //Navigator.pop(context);
     clearEdit();
