@@ -66,8 +66,10 @@ class AccountRepository extends ChangeNotifier {
   }
 
   Future<void> deletarContaBD(int id) async {
+    print('Entrou no deletar conta bd');
     int res = await db.delete('contas', where: 'id = ?', whereArgs: [id]);
     _initRepository();
+    print('Terminou o deletar conta bd');
   }
 
 //--------------------------- Firestore --------------------------------------
@@ -102,10 +104,8 @@ class AccountRepository extends ChangeNotifier {
     if (snapshot.size > 0) {
       String ultimoID = snapshot.docs.last.id;
       int novoID = int.parse(ultimoID) + 1;
-      print('Retornou ' + novoID.toString());
       return novoID.toString();
     } else {
-      print('Retornou 1');
       return '1';
     }
   }
@@ -123,7 +123,20 @@ class AccountRepository extends ChangeNotifier {
         .set({'nome': nome, 'login': login, 'senha': senha});
   }
 
-  removeContaFire(Account c) async {}
+  editContaFire(int id, String nome, String login, String senha) async {
+    await dbFire
+        .collection('usuarios/${auth.usuario!.uid}/contas')
+        .doc(id.toString())
+        .set({'nome': nome, 'login': login, 'senha': senha});
+  }
+
+  removeContaFire(int id) async {
+    await dbFire
+        .collection('usuarios/${auth.usuario!.uid}/contas')
+        .doc(id.toString())
+        .delete();
+    await recarregaContas();
+  }
 
 //----------------------------------------------------------------------------
 
@@ -187,7 +200,7 @@ class AccountRepository extends ChangeNotifier {
     }
   }
 
-  void editConta(BuildContext context) {
+  void editConta(BuildContext context) async {
     String check = checkEditFields();
     if (check == 'Ok') {
       if (cOn != editOnline) {
@@ -205,9 +218,9 @@ class AccountRepository extends ChangeNotifier {
         );
       } else {
         if (cOn) {
-          // contas[index].name = nomeEditController.text;
-          // contas[index].login = loginEditController.text;
-          // contas[index].password = senhaEditController.text;
+          await editContaFire(cId, nomeEditController.text,
+              loginEditController.text, senhaEditController.text);
+          await recarregaContas();
         } else {
           editContaBD(cId, nomeEditController.text, loginEditController.text,
               senhaEditController.text);
@@ -307,7 +320,7 @@ class AccountRepository extends ChangeNotifier {
 
   void setSelectedAccount(Account conta, bool on) {
     cId = conta.id;
-    editOnline = on;
+    cOn = on;
     nomeEditController.text = conta.name;
     loginEditController.text = conta.login;
     senhaEditController.text = conta.password;
@@ -333,8 +346,9 @@ class AccountRepository extends ChangeNotifier {
   }
 
   Future<void> removeConta(BuildContext context, {bool feedback = true}) async {
-    cOn ? print('fazer') : await deletarContaBD(cId);
-    Navigator.pop(context);
+    print('Entrou no remove conta');
+    cOn ? await removeContaFire(cId) : await deletarContaBD(cId);
+    //Navigator.pop(context);
     clearEdit();
     notifyListeners();
     if (feedback) {
