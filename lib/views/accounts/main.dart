@@ -37,10 +37,12 @@ class _AccountsPageState extends State<AccountsPage> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width - 147,
-                    child: CustomField(
-                      hint: 'Pesquisar',
-                      search: true,
-                      controller: TextEditingController(),
+                    child: Text(
+                      'Totalpass',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          ?.copyWith(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(width: 10),
