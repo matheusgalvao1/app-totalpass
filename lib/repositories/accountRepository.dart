@@ -20,7 +20,7 @@ class AccountRepository extends ChangeNotifier {
 
   _initRepository() async {
     await _startFirestore();
-    //await _readContas();
+    await _readContas();
 
     db = await DB.instance.database;
     List contasDoBanco = await db.query('contas');
@@ -83,14 +83,43 @@ class AccountRepository extends ChangeNotifier {
     if (auth.usuario != null && _contas.isEmpty) {
       final snapshot =
           await dbFire.collection('usuarios/${auth.usuario!.uid}/contas').get();
-      snapshot.docs.forEach((doc) {});
+      snapshot.docs.forEach((doc) {
+        Account contaAux = Account(
+          id: int.parse(doc.id),
+          name: doc.get('nome'),
+          login: doc.get('login'),
+          password: doc.get('senha'),
+        );
+        _contas.add(contaAux);
+        notifyListeners();
+      });
     }
+  }
+
+  Future<String> proximoID() async {
+    final snapshot =
+        await dbFire.collection('usuarios/${auth.usuario!.uid}/contas').get();
+    if (snapshot.size > 0) {
+      String ultimoID = snapshot.docs.last.id;
+      int novoID = int.parse(ultimoID) + 1;
+      print('Retornou ' + novoID.toString());
+      return novoID.toString();
+    } else {
+      print('Retornou 1');
+      return '1';
+    }
+  }
+
+  recarregaContas() async {
+    _contas.clear();
+    await _readContas();
+    notifyListeners();
   }
 
   addContaFire(String nome, String login, String senha) async {
     await dbFire
         .collection('usuarios/${auth.usuario!.uid}/contas')
-        .doc('123')
+        .doc(await proximoID())
         .set({'nome': nome, 'login': login, 'senha': senha});
   }
 
@@ -132,14 +161,7 @@ class AccountRepository extends ChangeNotifier {
       if (addOnline) {
         await addContaFire(nomeAddController.text, loginAddController.text,
             senhaAddController.text);
-        // _contas.add(
-        //   Account(
-        //     id: nextId(),
-        //     name: nomeAddController.text,
-        //     login: loginAddController.text,
-        //     password: senhaAddController.text,
-        //   ),
-        // );
+        await recarregaContas();
       } else {
         addContaBD(nomeAddController.text, loginAddController.text,
             senhaAddController.text);
@@ -315,41 +337,42 @@ class AccountRepository extends ChangeNotifier {
     Navigator.pop(context);
     clearEdit();
     notifyListeners();
-    if (feedback)
+    if (feedback) {
       CustomBar.showAlert(
         title: 'Sucesso!',
         message: 'Conta excluída',
         icon: const Icon(Icons.done_rounded),
         context: context,
       );
+    }
   }
 
-  findIndex(List<Account> lista, int id) {
-    for (int i = 0; i < lista.length; i++) {
-      if (lista[i].id == id) {
-        return i;
-      }
-    }
-    return -1;
-  }
+  // findIndex(List<Account> lista, int id) {
+  //   for (int i = 0; i < lista.length; i++) {
+  //     if (lista[i].id == id) {
+  //       return i;
+  //     }
+  //   }
+  //   return -1;
+  // }
 
-  int nextId() {
-    int id;
-    if (contas.isNotEmpty) {
-      id = contas[contas.length - 1].id + 1;
-      return id;
-    }
-    return 1;
-  }
+  // int nextId() {
+  //   int id;
+  //   if (contas.isNotEmpty) {
+  //     id = contas[contas.length - 1].id + 1;
+  //     return id;
+  //   }
+  //   return 1;
+  // }
 
-  int nextOff() {
-    int id;
-    if (contasOff.isNotEmpty) {
-      id = contasOff[contasOff.length - 1].id + 1;
-      return id;
-    }
-    return 1;
-  }
+  // int nextOff() {
+  //   int id;
+  //   if (contasOff.isNotEmpty) {
+  //     id = contasOff[contasOff.length - 1].id + 1;
+  //     return id;
+  //   }
+  //   return 1;
+  // }
 
   void setAddLoading(bool value) {
     if (addLoading != value) {

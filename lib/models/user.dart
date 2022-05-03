@@ -1,10 +1,10 @@
-class ModelUser {
-  String uid;
-  String email, senha;
+// class ModelUser {
+//   int uid;
+//   String email, senha;
 
-  ModelUser({
-    required this.uid,
-    required this.email,
-    required this.senha,
-  });
-}
+//   ModelUser({
+//     required this.uid,
+//     required this.email,
+//     required this.senha,
+//   });
+// }
