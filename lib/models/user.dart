@@ -1,5 +1,5 @@
 class ModelUser {
-  int uid;
+  String uid;
   String email, senha;
 
   ModelUser({
