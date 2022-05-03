@@ -59,7 +59,7 @@ class _AccountsPageState extends State<AccountsPage> {
               ),
             ),
             Expanded(
-              child: false
+              child: repositorio.loadingFireAccount
                   ? Center(
                       child: SpinKitFadingCircle(
                         color: Theme.of(context).colorScheme.primary,

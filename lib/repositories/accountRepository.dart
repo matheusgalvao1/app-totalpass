@@ -91,6 +91,7 @@ class AccountRepository extends ChangeNotifier {
           password: doc.get('senha'),
         );
         _contas.add(contaAux);
+        setFireLoading(false);
         notifyListeners();
       });
     }
@@ -109,9 +110,12 @@ class AccountRepository extends ChangeNotifier {
   }
 
   recarregaContas() async {
+    setFireLoading(true);
+    await Future.delayed(const Duration(milliseconds: 500));
     _contas.clear();
     await _readContas();
     notifyListeners();
+    setAddLoading(false);
   }
 
   addContaFire(String nome, String login, String senha) async {
@@ -159,6 +163,7 @@ class AccountRepository extends ChangeNotifier {
   bool showOnline = true;
 
   bool addLoading = false;
+  bool loadingFireAccount = true;
 
   int cId = -1;
   bool cOn = false;
@@ -388,6 +393,13 @@ class AccountRepository extends ChangeNotifier {
   void setAddLoading(bool value) {
     if (addLoading != value) {
       addLoading = value;
+      notifyListeners();
+    }
+  }
+
+  void setFireLoading(bool value) {
+    if (loadingFireAccount != value) {
+      loadingFireAccount = value;
       notifyListeners();
     }
   }
