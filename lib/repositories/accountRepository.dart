@@ -118,6 +118,8 @@ class AccountRepository extends ChangeNotifier {
   bool editOnline = true;
   bool showOnline = true;
 
+  bool addLoading = false;
+
   int cId = -1;
   bool cOn = false;
 
@@ -125,6 +127,8 @@ class AccountRepository extends ChangeNotifier {
     String check = checkAddFields();
 
     if (check == 'Ok') {
+      setAddLoading(true);
+      await Future.delayed(const Duration(milliseconds: 500));
       if (addOnline) {
         await addContaFire(nomeAddController.text, loginAddController.text,
             senhaAddController.text);
@@ -150,6 +154,7 @@ class AccountRepository extends ChangeNotifier {
         );
       }
       notifyListeners();
+      setAddLoading(false);
     } else {
       CustomBar.showAlert(
         title: 'Opss!',
@@ -344,5 +349,12 @@ class AccountRepository extends ChangeNotifier {
       return id;
     }
     return 1;
+  }
+
+  void setAddLoading(bool value) {
+    if (addLoading != value) {
+      addLoading = value;
+      notifyListeners();
+    }
   }
 }

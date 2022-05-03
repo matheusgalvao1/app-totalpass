@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:totalpass/models/account.dart';
@@ -78,12 +79,23 @@ class AddPage extends StatelessWidget {
                   text: 'Limpar',
                 ),
                 const SizedBox(width: 15),
-                CustomButton(
-                  onTap: () {
-                    repositorio.addConta(context);
-                  },
-                  text: 'Adicionar',
-                ),
+                repositorio.addLoading
+                    ? SizedBox(
+                        width: 130,
+                        height: 50,
+                        child: Center(
+                          child: SpinKitFadingCircle(
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 40,
+                          ),
+                        ),
+                      )
+                    : CustomButton(
+                        onTap: () {
+                          repositorio.addConta(context);
+                        },
+                        text: 'Adicionar',
+                      ),
               ],
             ),
           ],
