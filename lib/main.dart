@@ -26,11 +26,17 @@ void main() async {
     runApp(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => AuthService()),
+          ChangeNotifierProvider(
+            create: (context) => AuthService(),
+          ),
           ChangeNotifierProvider<AccountRepository>(
-              create: (context) => AccountRepository()),
+            create: (context) => AccountRepository(
+              auth: context.read<AuthService>(),
+            ),
+          ),
           ChangeNotifierProvider<UserRepository>(
-              create: (context) => UserRepository()),
+            create: (context) => UserRepository(),
+          ),
         ],
         child: MyApp(),
       ),

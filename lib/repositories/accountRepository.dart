@@ -1,21 +1,27 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/account.dart';
 import '../components/CustomBar.dart';
 import '../database/db.dart';
+import '../database/db_firestore.dart';
+import '../services/auth_service.dart';
 
 class AccountRepository extends ChangeNotifier {
   late Database db;
 
-  AccountRepository() {
+  AccountRepository({required this.auth}) {
     _initRepository();
   }
 
   _initRepository() async {
+    await _startFirestore();
+    //await _readContas();
+
     db = await DB.instance.database;
     List contasDoBanco = await db.query('contas');
     _contasOff.clear();
@@ -28,6 +34,8 @@ class AccountRepository extends ChangeNotifier {
       ));
     }
   }
+
+//--------------------------- SQLite -----------------------------------------
 
   void addContaBD(String nome, String login, String senha) async {
     int id = await db.insert('contas', {
@@ -62,7 +70,34 @@ class AccountRepository extends ChangeNotifier {
     _initRepository();
   }
 
+//--------------------------- Firestore --------------------------------------
+
+  late FirebaseFirestore dbFire;
+  late AuthService auth;
+
+  _startFirestore() {
+    dbFire = DBFirestore.get();
+  }
+
+  _readContas() async {
+    if (auth.usuario != null && _contas.isEmpty) {
+      final snapshot =
+          await dbFire.collection('usuarios/${auth.usuario!.uid}/contas').get();
+      snapshot.docs.forEach((doc) {});
+    }
+  }
+
+  addContaFire(String nome, String login, String senha) async {
+    await dbFire
+        .collection('usuarios/${auth.usuario!.uid}/contas')
+        .doc('123')
+        .set({'nome': nome, 'login': login, 'senha': senha});
+  }
+
+  removeContaFire(Account c) async {}
+
 //----------------------------------------------------------------------------
+
   final List<Account> _contas = [];
 
   final List<Account> _contasOff = [];
@@ -86,32 +121,24 @@ class AccountRepository extends ChangeNotifier {
   int cId = -1;
   bool cOn = false;
 
-  void addConta(BuildContext context, {bool feedback = true}) {
+  void addConta(BuildContext context, {bool feedback = true}) async {
     String check = checkAddFields();
 
     if (check == 'Ok') {
       if (addOnline) {
-        _contas.add(
-          Account(
-            id: nextId(),
-            name: nomeAddController.text,
-            login: loginAddController.text,
-            password: senhaAddController.text,
-          ),
-        );
+        await addContaFire(nomeAddController.text, loginAddController.text,
+            senhaAddController.text);
+        // _contas.add(
+        //   Account(
+        //     id: nextId(),
+        //     name: nomeAddController.text,
+        //     login: loginAddController.text,
+        //     password: senhaAddController.text,
+        //   ),
+        // );
       } else {
         addContaBD(nomeAddController.text, loginAddController.text,
             senhaAddController.text);
-        /*
-        _contasOff.add(
-          Account(
-            id: nextOff(),
-            name: nomeAddController.text,
-            login: loginAddController.text,
-            password: senhaAddController.text,
-          ),
-        );
-        */
       }
       clearAdd();
       if (feedback) {

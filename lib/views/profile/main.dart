@@ -73,14 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(width: 5),
                   Expanded(
-                    child: Text(
-                      context.read<AuthService>().getEmail(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2
-                          ?.copyWith(color: Colors.grey),
-                    ),
+                    child: Consumer<AuthService>(
+                        builder: (context, repositorio, child) {
+                      return Text(
+                        repositorio.getEmail() ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2
+                            ?.copyWith(color: Colors.grey),
+                      );
+                    }),
                   ),
                 ],
               ),

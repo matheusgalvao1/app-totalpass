@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
 
   another_flushbar: ^1.10.28
+  cloud_firestore: "^2.3.0"
+  #cloud_firestore: ^3.1.13
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.3.15
   firebase_core: ^1.13.1
