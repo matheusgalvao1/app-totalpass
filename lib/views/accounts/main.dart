@@ -21,6 +21,14 @@ class AccountsPage extends StatefulWidget {
 
 class _AccountsPageState extends State<AccountsPage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      Provider.of<AccountRepository>(context, listen: false).recarregaContas();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<AccountRepository>(
       builder: (context, repositorio, child) {
@@ -34,28 +42,29 @@ class _AccountsPageState extends State<AccountsPage> {
                 right: 15,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width - 147,
-                    child: Text(
-                      'Totalpass',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          ?.copyWith(fontSize: 30, fontWeight: FontWeight.bold),
+                  IconButton(
+                    onPressed: () => repositorio.recarregaContas(),
+                    icon: Icon(
+                      CupertinoIcons.refresh,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Online',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  CupertinoSwitch(
-                    value: repositorio.showOnline,
-                    onChanged: (value) => repositorio.setShowOnline(value),
+                  Row(
+                    children: [
+                      const Text(
+                        'Online',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      CupertinoSwitch(
+                        value: repositorio.showOnline,
+                        onChanged: (value) => repositorio.setShowOnline(value),
+                      ),
+                    ],
                   ),
                 ],
               ),

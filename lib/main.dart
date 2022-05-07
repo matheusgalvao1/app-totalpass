@@ -34,9 +34,6 @@ void main() async {
               auth: context.read<AuthService>(),
             ),
           ),
-          // ChangeNotifierProvider<UserRepository>(
-          //   create: (context) => UserRepository(),
-          // ),
         ],
         child: MyApp(),
       ),

@@ -19,6 +19,7 @@ class AccountRepository extends ChangeNotifier {
   }
 
   _initRepository() async {
+    clearContas();
     await _startFirestore();
     await _readContas();
 
@@ -114,8 +115,8 @@ class AccountRepository extends ChangeNotifier {
     await Future.delayed(const Duration(milliseconds: 500));
     _contas.clear();
     await _readContas();
+    setFireLoading(false);
     notifyListeners();
-    setAddLoading(false);
   }
 
   addContaFire(String nome, String login, String senha) async {
@@ -274,6 +275,11 @@ class AccountRepository extends ChangeNotifier {
     return 'Ok';
   }
 
+  void clearContas() {
+    _contas.clear();
+    //notifyListeners();
+  }
+
   void clearAdd() {
     nomeAddController.clear();
     loginAddController.clear();
@@ -362,33 +368,6 @@ class AccountRepository extends ChangeNotifier {
       );
     }
   }
-
-  // findIndex(List<Account> lista, int id) {
-  //   for (int i = 0; i < lista.length; i++) {
-  //     if (lista[i].id == id) {
-  //       return i;
-  //     }
-  //   }
-  //   return -1;
-  // }
-
-  // int nextId() {
-  //   int id;
-  //   if (contas.isNotEmpty) {
-  //     id = contas[contas.length - 1].id + 1;
-  //     return id;
-  //   }
-  //   return 1;
-  // }
-
-  // int nextOff() {
-  //   int id;
-  //   if (contasOff.isNotEmpty) {
-  //     id = contasOff[contasOff.length - 1].id + 1;
-  //     return id;
-  //   }
-  //   return 1;
-  // }
 
   void setAddLoading(bool value) {
     if (addLoading != value) {

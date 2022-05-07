@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:totalpass/repositories/accountRepository.dart';
 import 'package:totalpass/views/auth/login.dart';
 import 'package:totalpass/views/home/main.dart';
 
@@ -17,12 +18,14 @@ class _AuthCheckState extends State<AuthCheck> {
   @override
   Widget build(BuildContext context) {
     AuthService auth = Provider.of<AuthService>(context);
+    AccountRepository acc = Provider.of<AccountRepository>(context);
 
     if (auth.isLoading)
       return loading();
-    else if (auth.usuario == null)
+    else if (auth.usuario == null) {
+      acc.clearContas();
       return LoginPage();
-    else
+    } else
       return Home();
   }
 
