@@ -119,6 +119,17 @@ class AccountRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  recarregaContasPrimeiraVez() async {
+    if (_contas.isEmpty) {
+      setFireLoading(true);
+      await Future.delayed(const Duration(milliseconds: 500));
+      _contas.clear();
+      await _readContas();
+      setFireLoading(false);
+      notifyListeners();
+    }
+  }
+
   addContaFire(String nome, String login, String senha) async {
     await dbFire
         .collection('usuarios/${auth.usuario!.uid}/contas')

@@ -24,7 +24,8 @@ class _AccountsPageState extends State<AccountsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      Provider.of<AccountRepository>(context, listen: false).recarregaContas();
+      Provider.of<AccountRepository>(context, listen: false)
+          .recarregaContasPrimeiraVez();
     });
   }
 
