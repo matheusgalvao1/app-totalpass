@@ -3,7 +3,16 @@ RA: 2163357
 
 Desenvolvido individualmente
 
-Descrição: Aplicativo para gerenciamento de senhas, propondo armazenamento
+Descrição: 
+
+Entrega 1: Aplicativo para gerenciamento de senhas, propondo armazenamento
 online e offline de dados para caso o usuário deseje armazenar algumas senhas
-apenas localmente no aparelho, com funcionalidades de filtragem, edição, exclusão
+apenas localmente no aparelho, com funcionalidades de edição, exclusão
 e cópia para clipboard. 
+
+Entrega 2: Foram implementadas a seguintes funcionalidades:
+Autenticação do usuário por email e senha através do firebase, exclusão da conta 
+do usuário, edição do email cadastrado, uso de banco de dados SQLite para armazenar
+dados de forma offline, uso de banco de dados firestore para armazenar dados online,
+ambas as implementações do banco de dados possuem todas as funções de insert, update
+e delete.
